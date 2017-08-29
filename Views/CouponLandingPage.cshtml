@@ -1,0 +1,38 @@
+﻿@using Mars.PerfectFit.Presentation.Web.Helpers
+@model Mars.PerfectFit.Presentation.Web.ViewModels.CouponLandingViewModel
+@{
+    Layout = "DefaultLayout.cshtml";
+}
+
+<div class="page-container js-data-print-coupon" data-print-coupon="@ViewBag.DirectPrint">
+    <div class="banner">
+        <picture>
+            <source media="(max-width: 1023px)" srcset="@Html.GetMediaItem(Model.CouponLanding.BannerImage)" />
+            <img class="img--responsive" src="@Html.GetMediaItem(Model.CouponLanding.BannerImage)" width="1280" height="696" alt="Hello" />
+        </picture>
+    </div>
+    <div class="overview-box">
+        <h1 class="overview-box__title">@LocalizationHelper.GetDictionaryItem("Coupon - Landing Page - Title")<span class="overview-box__subtitle">@Model.CouponLanding.Title</span></h1>
+        <p class="overview-box__paragraph">@Model.CouponLanding.Description</p>
+    </div>
+    <p class="overview-box__paragraph">
+        @ViewBag.MessageCoupon
+    </p>
+    @{ Html.RenderPartial("~/Views/Partials/Coupons.cshtml", Model.Coupons); }
+    <div class="text-box__container">
+<p class="text-box__text">@LocalizationHelper.GetDictionaryItem("Coupon - Landing Page - Footer Text")</p>
+    </div>
+    <div class="coupon-popin coupon-popin--one mfp-hide">
+        <h2>How to Print</h2>
+        <div class="coupon-popin__element" style="text-align:left">
+            @Html.Raw(LocalizationHelper.GetDictionaryItem("Coupon - Landing Page - Popin - Text1"))<br>@LocalizationHelper.GetDictionaryItem("Coupon - Landing Page - Footer Text2")<p></p><a class="btn btn--link js-print-coupon-now btn--form btn--flex" href="#"><span>@LocalizationHelper.GetDictionaryItem("Coupon - Landing Page - Popin - Button")</span></a>
+        </div>
+    </div>
+
+    <div class="mfp-hide coupon--prevent-print">
+        <h2>Desktop required</h2>
+        <div class="coupon-popin__element" style="text-align:left">
+            <p>@LocalizationHelper.GetDictionaryItem("Coupon - Landing Page - Popin Print - text1")<br>@LocalizationHelper.GetDictionaryItem("Coupon - Landing Page - Popin Print - text2")</p>
+        </div>
+    </div>
+</div>

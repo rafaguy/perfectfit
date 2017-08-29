@@ -1,0 +1,53 @@
+﻿@using Mars.PerfectFit.Presentation.Web.Helpers;
+@using Mars.PerfectFit.Presentation.Web.Security;
+@using Mars.PerfectFit.Presentation.Web.ViewModels
+@model Mars.PerfectFit.Presentation.Web.ViewModels.Navigation
+
+<div class="navbar__right navbar--perfect-plus">
+   
+@{
+
+        <ul class="inline-list inline-list--flex">
+            <li class="inline-list__item--perfectfit-plus">
+                <img data-img-mobile="@Model.SecondaryLogoMobile.Path" class="img--perfectfit-plus" src="@Model.SecondaryLogo.Path" alt="Perfect Fit Logo" width="313" height="64"><i class="icon-plus"></i>
+
+            </li>
+            @if (!Authentication.isLogin())
+            {
+                foreach (var item in Model.MenuItems.Where(x => x.Alignment == "Right"))
+                {
+                    <li class="inline-list__item inline-list__item--slashed">
+                        <a class="inline-list__link @item.CssClassName" href="@item.RelativeLink">@item.Title</a>
+                    </li>
+                }
+            }
+            else
+            {
+
+                string userName = Authentication.GetUserFirstName();
+                if(Session["NewFirstName"] != null)
+                {
+                    userName = Session["NewFirstName"].ToString();
+                }
+
+
+                <li class="inline-list__item inline-list__item--slashed"><a class="inline-list__link js-anchor" href="/@Model.ProfileUrl">@userName</a></li>
+                    @*@Html.ActionLink(userName, "Profil", "Profil", null, new { @class = "inline-list__link js-anchor" })*@
+
+                <li class="inline-list__item inline-list__item--slashed">
+
+                    @Html.ActionLink(@LocalizationHelper.GetDictionaryItem("LogOut - Link"), "LogOut", "Account", null, new { @class = "inline-list__link js-anchor" })
+
+                </li>
+
+                        }
+</ul>
+
+    }
+
+    </div>
+
+
+
+
+

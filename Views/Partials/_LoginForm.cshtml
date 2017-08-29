@@ -1,0 +1,38 @@
+﻿@using Mars.PerfectFit.Presentation.Web.Controllers
+@using Mars.PerfectFit.Presentation.Web.Helpers
+@model Mars.PerfectFit.Presentation.Web.ViewModels.LoginViewModel
+@{
+    var requiredFieldErrorEmail = @LocalizationHelper.GetDictionaryItem("Login - popin - UserName - Required - Validation");
+    var requiredFieldErrorPasswd = @LocalizationHelper.GetDictionaryItem("Login - popin - Password - Required - Validation");
+}
+
+
+@using (Html.BeginUmbracoForm<LoginController>("ValidationLogin", null, new Dictionary<string, object> { { "class", "login-form" } }))
+{
+    <div class="message"></div>
+    <label for="login-form-email">@LocalizationHelper.GetDictionaryItem("Login - Form -Tagline - Title - Emailaddress")<span class="form-item__info"></span></label>
+
+    @Html.TextBoxFor(x => x.Username, new { type = "email", required = "required", id = "login-form-email", name = "email", data_parsley_required = "data-parsley-required",
+    data_parsley_error_message = @requiredFieldErrorEmail
+})
+
+    <label for="login-form-password">@LocalizationHelper.GetDictionaryItem("Login - Tagline - Title - Password")<span class="form-item__info">@LocalizationHelper.GetDictionaryItem("Login - Form - Tagline - Password - Minimum")</span></label>
+
+    @Html.TextBoxFor(x => x.Password, new { type = "password", name = "password", id = "login-form-password", required = "required", data_parsley_error_message = @requiredFieldErrorPasswd })<p><a class="link js-forgot-password" href="#">@LocalizationHelper.GetDictionaryItem("Login - Form - Forgot -Password")</a></p>
+    <input id="UrlPageReturn" name="UrlPageReturn" value="@ViewBag.ReturnUrl" type="hidden">
+
+    <p class="mandatory-info">@LocalizationHelper.GetDictionaryItem("Login - Form - Mandatory - Text")</p>
+    <div class="loader"> <img src="~/public/images/common/ajax-loader-2.gif" alt="loader"></div>
+    <button class="btn btn--block btn--form js-sign-in" type="submit">
+        <span>@LocalizationHelper.GetDictionaryItem("Login - Form - Text - Button")</span>
+    </button>
+
+    <div class="checkbox-container">
+        <input class="form-item" type="checkbox" name="keep-me-signed" id="keep-me-signed" />
+        <label for="keep-me-signed">@LocalizationHelper.GetDictionaryItem("Login - Form - Checkbox - Loggedin")</label>
+    </div>
+}
+
+
+
+

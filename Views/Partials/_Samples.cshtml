@@ -1,0 +1,33 @@
+﻿@using Mars.PerfectFit.Presentation.Web.Helpers
+@model IEnumerable<Mars.PerfectFit.Core.Domain.Models.Sampling.Sample>
+
+@foreach (var sample in Model)
+{
+    <div class="offers__container--single" id="sample-dog" data-sample-id="@sample.SampleId">
+        <div class="offers__header">
+            <h2 class="offers__title">@sample.Title<span class="offers__subtitle"> @sample.SubTitle</span></h2>
+        </div>
+        <div class="offers__wrapper offers__wrapper--single">
+            <div class="offers__banner"></div>
+            <div class="offers__items-wrapper">
+                <div class="offers__packshot offers__packshot--sample">
+                    <img src="@sample.Packshots[0].Path" alt="@sample.Packshots[0].Alt" />
+                </div>
+                <div class="offers__description offers__description--sample">
+                    <p>@sample.Description</p>
+                </div>
+                <div class="offers__coupon-wrapper offers__coupon-wrapper--single">
+                    <div class="offers__coupon offers__coupon--single">
+                        <div class="coupon__box">
+                            <img src="~/public/images/common/icons/offer.svg" width="40" height="40" alt="offer" />
+                            <p class="coupon__text coupon__text--sample">@sample.Quantity @LocalizationHelper.GetDictionaryItem("Sample - Sample Box - Title")
+                                <span class="coupon__text coupon__text--sample-bold">@LocalizationHelper.GetDictionaryItem("Sample - Sample Box - Subtitle")</span>
+                            </p>
+                            <a class="btn btn--link btn--white js-register-sample btn--mobile" href="@Url.Action("ProcessRequest", "Sample", new { culture = sample.Culture.ToString(), sampleId = sample.SampleId })"><span>@ViewBag.ButtonText</span></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}

@@ -1,0 +1,24 @@
+﻿@using Mars.PerfectFit.Presentation.Web.Helpers
+@model Mars.PerfectFit.Presentation.Web.ViewModels.RegistrationConfirmationViewModel
+@{
+    Layout = "DefaultLayout.cshtml";
+}
+<div class="page-container">
+    <div class="banner">
+        <picture>
+            <source media="(max-width: 1023px)" srcset="@Html.GetMediaItem(Model.registrationConfirmation.BannerImage)" />
+            <img class="img--responsive" src="@Html.GetMediaItem(Model.registrationConfirmation.BannerImage)" width="1280" height="696" alt="Hello" />
+        </picture>
+    </div>
+    <div class="section-container overlapping-section overlapping-section--high">
+        <header class="overlapping-section__header">
+            <h1><span class="bold">@LocalizationHelper.GetDictionaryItem("Registration - Confirmation Page - Title")</span>@Model.registrationConfirmation.Title</h1>
+            <div class="overlapping-section__introduction">
+                <p class="overlapping-section__paragraph">@Model.registrationConfirmation.MessageConfirmation1</p>
+                <p class="overlapping-section__paragraph">@Html.Raw(HttpUtility.HtmlDecode(Model.registrationConfirmation.MessageConfirmation2))</p><a class="overlapping-section__link" href="/">
+                <span class="perfectfit-plus-title"><img src="@Model.SiteLogo.Path" alt="Perfect Fit Logo" width="313" height="64">
+                <i class="icon-plus"></i></span></a>
+            </div>
+        </header>
+    </div>
+</div>

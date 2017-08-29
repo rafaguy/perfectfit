@@ -1,0 +1,29 @@
+﻿@using Mars.PerfectFit.Presentation.Web.Helpers
+@model IEnumerable<Mars.PerfectFit.Core.Domain.Models.Coupons.Coupon>
+
+@foreach (var coupon in Model)
+{
+    <div class="offers__container--single" id="coupon-@Html.Raw(coupon.Species.CommonName)" data-coupon-id="@coupon.ProviderCouponId">
+        <div class="offers__header">
+            <h2 class="offers__title">@LocalizationHelper.GetDictionaryItem("Coupon - Detail Page - Title") <span class="offers__subtitle">@Html.Raw(coupon.Title)</span></h2>
+        </div>
+        <div class="offers__wrapper offers__wrapper--single">
+            <div class="offers__banner"></div>
+            <div class="offers__items-wrapper">
+                <div class="offers__packshot">
+                    <img src="@Html.GetMediaItem(coupon.MainImageId)" width="" height="" alt="@Html.Raw(coupon.Species.CommonName)" />
+                </div>
+                <div class="offers__description">
+                    <p>@Html.Raw(coupon.Description)</p>
+                </div>
+                <div class="offers__coupon-wrapper offers__coupon-wrapper--single">
+                    <div class="offers__coupon offers__coupon--single">
+                        <div class="coupon__box">
+                            <p class="coupon__text coupon__text--bold">@Html.Raw(coupon.Price)<span class="coupon__text">Off</span></p><a class="btn btn--link coupon-@Html.Raw(coupon.Species.CommonName)-push btn--white btn--mobile js-print-coupon print-coupon @Html.Raw(coupon.CssAlredyPrinted)" href="/umbraco/Surface/Coupon/GetPrintCouponToken?couponId=@coupon.ProviderCouponId&printLogin=print=@Html.Raw(coupon.Species.CommonName)&returnUrl=@ViewBag.BaseUrl/@ViewBag.ReturnUrl"><span>@coupon.UserCouponMessage</span></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}

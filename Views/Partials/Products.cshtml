@@ -1,0 +1,46 @@
+﻿@using Mars.PerfectFit.Presentation.Web.Helpers
+@model IEnumerable<Mars.PerfectFit.Core.Domain.Models.Products.Product>
+
+<div class="row">
+    @foreach (var product in Model)
+    {
+        <div class="product-box__wrapper">
+            <div class="small-12 large-6 columns">
+                <div class="product-box">
+                    <div class="product-box__header">
+                        <div class="row">
+                            <div class="small-10 large-10 columns no-padding">
+                                <div class="product-box__title">@Html.Raw(product.Title)</div>
+                            </div>
+                            <div class="small-2 large-2 columns no-padding">
+                                <div class="product-box__icon">
+                                    <img src="@Html.GetMediaItem(product.Flavor.Icon)" width="47" height="47" alt="flavors"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-box__content-wrapper"></div>
+                    <div class="row">
+                        <div class="small-6 large-6 columns">
+                            <div class="product-box__img">
+                                <a class="js-view-product" href="@product.RelativeLink">
+                                    <img class="img--responsive" src="@Html.GetMediaItem(product.MainPackshot)" width="200" height="250" alt="Perfect Fit Logo"/>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="small-6 large-6 columns">
+                            <div class="product-box__review"></div>
+                        </div>
+                        <div class="small-12 large-12 columns">
+                            <div class="product-box__description">
+                                <p>@Html.Raw(product.Description)</p><a class="btn btn--link js-view-product" href="@product.RelativeLink">
+                                    <span>view product</span><i class="icon-navigate-next"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>

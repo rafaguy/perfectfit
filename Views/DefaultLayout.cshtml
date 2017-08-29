@@ -1,0 +1,172 @@
+﻿@using Mars.PerfectFit.Presentation.Web.Helpers
+@using Mars.PerfectFit.Presentation.Web.ViewModels
+@using Mars.PerfectFit.Presentation.Web.Security
+
+@model Mars.PerfectFit.Presentation.Web.ViewModels.ViewModelBase
+@{
+    Layout = null;
+    var node = uQuery.GetNodesByXPath("//registration").FirstOrDefault();
+    string registrationUrlALias = node.GetProperty<string>("umbracoUrlAlias");
+
+}
+<!DOCTYPE html>
+<html lang="@Model.Culture.Name" dir="ltr">
+<head>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+            @Html.Raw(ViewBag.MetaDataSiteMap)
+            @Html.Raw(ViewBag.DataLayer)
+            @Html.Raw(ViewBag.DataLayerLogin)
+        @Html.Raw(ViewBag.DataLayerLoginComplete)
+        @*@if (Session["user_profile"] != null) {
+             @Html.Raw(Session["user_profile"]);
+        }*@
+
+    </script>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-TN6V478');</script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    @if (Model.NoIndex)
+    {
+        <meta name="robots" content="noindex, nofollow" />
+    }
+
+    <meta name="description" content="@Model.MetaDescription">
+    <meta name="keywords" content="@Model.MetaKeywords">
+    <title>@Model.PageTitle</title>
+    <meta property="og:site_name" content="@Model.OgSiteName">
+    <meta property="og:url" content="@Model.OgUrl">
+    <meta property="og:title" content="@Model.OgTitle">
+    <meta property="og:description" content="@Model.OgDescription">
+    <meta property="og:image" content="@Html.MediaUrlWithDomain(Model.OgImage.Path)">
+    <meta property="og:type" content="@Model.OgType">
+    <link rel="icon" type="image/png" href="@Model.Favicon.Path">
+    <link rel="stylesheet" href="~/public/styles/global.min.css">
+</head>
+
+<body data-page-id="@Model.PageId">
+    <div class="wrapper">
+        <header>
+            <div class="page-container">
+                <div class="navbar-wrapper">
+                    <button class="btn btn--menu-toggle js-menu-toggle" aria-label="Menu Toggle" type="button">
+                        <i class="icon-hamburger"></i>
+                    </button>
+                    <div class="header__logo"><a href="/"><img class="img--responsive" src="@Model.SiteLogo.Path" alt="@Model.SiteLogo.Alt" width="313" height="64"></a></div>
+                    <div class="navbar">
+                        @{ Html.RenderPartial("~/Views/Partials/LeftMenu.cshtml", Model.Navigation); }
+
+                        @{ Html.RenderPartial("~/Views/Partials/RightMenu.cshtml", Model.Navigation); }
+                    </div>
+                </div>
+                <div class="nav-mobile"></div>
+            </div>
+            <div class="login-popin mfp-hide">
+                <div class="login-popin__header">
+                    <p class="title">@Html.Raw(LocalizationHelper.GetDictionaryItem("Login - Form - Title"))<span class="perfectfit-plus-title"><img src="@Model.SiteLogo.Path" alt="@Model.SiteLogo.Alt" width="313" height="64"><i class="icon-plus"></i></span></p>
+                    @*<p class="overlapping-section__paragraph">@Html.Raw(LocalizationHelper.GetDictionaryItem("Login - Form - SpecialOffers - Text"))</p>*@
+                    <p class="overlapping-section__paragraph">@Html.Raw(LocalizationHelper.GetDictionaryItem("Login - Form - Questionary - Not - Account")) </p>
+                    <p><a class="link js-create-account" href="@Model.Navigation.RegistrationUrl">@Html.Raw(LocalizationHelper.GetDictionaryItem("Login - Form - Create - Account"))</a></p>
+                </div>
+                <div class="section-content">
+                    @{
+                        Html.RenderPartial("~/Views/Partials/_LoginForm.cshtml", new LoginViewModel());
+                    }
+                    <!--
+                        <p><a class="link link--normal js-resent-email" href="#">Send me again the confirmation email</a></p>
+                    -->
+                    @Html.Raw(LocalizationHelper.GetDictionaryItem("Login - Form -  PrivacyPolicy - Text"))
+
+
+                </div>
+            </div>
+            <div class="section-container overlapping-section mfp-hide rest-password-step-1">
+                <div class="overlapping-section__header">
+                    <p class="title">@Html.Raw(LocalizationHelper.GetDictionaryItem("Login - Form - Title"))<span class="perfectfit-plus-title"><img src="@Model.SiteLogo.Path" alt="@Model.SiteLogo.Alt" width="313" height="64"><i class="icon-plus"></i></span></p>
+                    @if (!Authentication.isLogin())
+                    {
+                        <div class="overlapping-section__introduction">
+                            <p class="overlapping-section__paragraph overlapping-section__paragraph--bold">@Html.Raw(LocalizationHelper.GetDictionaryItem("Login - Form - Questionary - ForgotPassword"))</p>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="overlapping-section__introduction">
+                            <p class="overlapping-section__paragraph overlapping-section__paragraph--bold">@Html.Raw(LocalizationHelper.GetDictionaryItem("Change - Password - Text"))</p>
+                        </div>
+                    }
+                </div>
+                <div class="section-content">
+                    @{
+                        Html.RenderPartial("~/Views/Partials/_ForgotPasswordForm.cshtml", new ForgotPasswordViewModel());
+                    }
+                </div>
+            </div>
+
+            <div class="section-container overlapping-section mfp-hide rest-password-step-3">
+                <div class="overlapping-section__header">
+
+                    <p class="title">@Html.Raw(LocalizationHelper.GetDictionaryItem("Login - Form - Title"))<span class="perfectfit-plus-title"><img src="@Model.SiteLogo.Path" alt="Perfect Fit Logo" width="313" height="64" /><i class="icon-plus"></i></span></p>
+
+                    <div class="overlapping-section__introduction">
+                        <p class="overlapping-section__paragraph overlapping-section__paragraph--bold">@LocalizationHelper.GetDictionaryItem("Forgot - Password - From - Popin - Step3") </p>
+                    </div>
+                </div>
+                <div class="section-content">
+                    <p>@Html.Raw(LocalizationHelper.GetDictionaryItem("Pop in step 3 - Forgot - Password"))</p>
+                    <button class="btn btn--block btn--form js-reset-success" type="submit">
+                        <span>@Html.Raw(LocalizationHelper.GetDictionaryItem("Forgot - Password - PopIn - Okay - Button"))</span>
+                    </button>
+                </div>
+            </div>
+            <div class="section-container overlapping-section mfp-hide resent-email">
+                <div class="overlapping-section__header">
+                    <p class="title">Log in to<span class="perfectfit-plus-title"><img src="@Model.SiteLogo.Path" alt="Perfect Fit Logo" width="313" height="64"><i class="icon-plus"></i></span></p>
+                    <div class="overlapping-section__introduction">
+                        <p class="overlapping-section__paragraph overlapping-section__paragraph--bold">Resent email</p>
+                    </div>
+                </div>
+                <div class="section-content">
+                    <form class="resent-email-form" action="#" method="post">
+                        <p>Fill in your email address to receive the link to confirm your password.</p>
+                        <div class="message"></div>
+                        <input type="email" name="email" id="resent-email-form-email" placeholder="E-mail" data-parsley-required="" data-parsley-type="email" data-parsley-error-message="Please insert a valid adress mail" />
+                        <div class="loader"><img src="~/public/images/common/ajax-loader-2.gif" alt="loader"></div>
+                        <button class="btn btn--block btn--form" type="submit">
+                            <span>Enter</span>
+                        </button><span class="return-to-login"><a class="link log-in-link" href="#">Return to log in</a></span>
+                    </form>
+                </div>
+            </div>
+        </header>
+        <main>
+            @RenderBody()
+        </main>
+        <script type="text/javascript" src="~/public/scripts/app.min.js" defer></script>
+        @Html.Raw(Model.FooterScripts)
+        <footer>
+            @{ if (Model.FooterLogo.Path != null)
+            {
+                    <div class="footer__container">
+                        <div class="footer--row full-width">
+                            <div class="small-3 large-5 columns">
+                                <div class="footer--image">    <img src="@Model.FooterLogo.Path" alt="@Model.FooterLogo.Alt" width="48" height="47"></div>
+                            </div>
+                            <div class="small-9 large-7 columns">
+                                <div class="footer--text">
+                                  @Html.Raw(@Model.FooterDescritpion)
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+        </footer>
+
+    </div>
+
+
+</body>
+</html>

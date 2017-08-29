@@ -1,0 +1,50 @@
+﻿@using Mars.PerfectFit.Presentation.Web.Helpers
+@model Mars.PerfectFit.Presentation.Web.ViewModels.LoginViewModel
+
+@{
+    Layout = "DefaultLayout.cshtml";
+    var success = TempData["success"];
+    var confirmSuccessMessage = TempData["Confirmsuccess"];
+    var errorCredential = TempData["errorCredential"];
+    var registrationUrl = ViewBag.RegsitrationUrl;
+}
+
+<div class="page-container">
+    <div class="banner">
+        <picture>
+            <source media="(max-width: 1023px)" srcset="@Model.Banner.Path" />
+            <img class="img--responsive" src="@Model.Banner.Path" width="@Model.Banner.Width" height="@Model.Banner.Height" alt="@Model.Banner.Alt" />
+        </picture>
+    </div>
+    <div class="section-container overlapping-section">
+        <header class="overlapping-section__header">
+            <h1>@LocalizationHelper.GetDictionaryItem("Login - Form - Title")<span class="perfectfit-plus-title"><img src="@Model.SiteLogo.Path" alt="@Model.SiteLogo.Alt" width="@Model.SiteLogo.Width" height="@Model.SiteLogo.Height"><i class="icon-plus"></i></span></h1>
+            <div class="overlapping-section__introduction">
+
+
+                @if (success != null)
+                {
+                    <p class="overlapping-section__paragraph overlapping-section__paragraph--bold">@success </p>
+                    <p class="overlapping-section__paragraph">@Html.Raw(confirmSuccessMessage)</p>
+                    <p class="overlapping-section__paragraph">@LocalizationHelper.GetDictionaryItem("Login - Form - Account - Question")&nbsp;&nbsp;<a class="link js-create-account" href="@registrationUrl">@LocalizationHelper.GetDictionaryItem("Login - Form - Create - Account")</a></p>
+                }
+                else if (errorCredential != null)
+                {
+                    <p class="overlapping-section__paragraph overlapping-section__paragraph--bold message message--visible">@errorCredential </p>
+                    <p class="overlapping-section__paragraph">@LocalizationHelper.GetDictionaryItem("Login - Form - Account - Question")&nbsp;&nbsp;<a class="link js-create-account" href="@registrationUrl">@LocalizationHelper.GetDictionaryItem("Login - Form - Create - Account")</a></p>
+                }
+                else
+                {
+
+                    <p class="overlapping-section__paragraph">@LocalizationHelper.GetDictionaryItem("Login - Form - Account - Question")&nbsp;&nbsp;<a class="link js-create-account" href="@registrationUrl">@LocalizationHelper.GetDictionaryItem("Login - Form - Create - Account")</a></p>
+                }
+            </div>
+        </header>
+        <div class="section-content">
+            @{
+                Html.RenderPartial("~/Views/Partials/_LoginFormPage.cshtml", new  Mars.PerfectFit.Presentation.Web.ViewModels.LoginViewModel());
+            }
+            @Html.Raw(LocalizationHelper.GetDictionaryItem("Login - Form -  PrivacyPolicy - Text"))
+        </div>
+    </div>
+</div>

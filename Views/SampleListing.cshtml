@@ -1,0 +1,22 @@
+﻿@using Mars.PerfectFit.Presentation.Web.Helpers
+@model Mars.PerfectFit.Presentation.Web.ViewModels.SampleListingViewModel
+@{
+	Layout = "DefaultLayout.cshtml";
+}
+
+<div class="page-container">
+    <div class="banner">
+        <picture>
+            <source media="(max-width: 1023px)" srcset="@Model.Banner.Path" />
+            <img class="img--responsive" src="@Model.Banner.Path" width="1280" height="696" alt="@Model.Banner.Alt" />
+        </picture>
+    </div>
+    <div class="overview-box">
+        <h1 class="overview-box__title"><span class="overview-box__title--simple">@Model.Title  </span><span>@Model.SubTitle</span><span class="overview-box__subtitle"></span></h1>
+        <p class="overview-box__paragraph">@Model.Description</p>
+    </div>
+    <p class="overview-box__paragraph">
+        @ViewBag.NoOffersAvailable
+    </p>
+    @{ Html.RenderPartial("~/Views/Partials/_Samples.cshtml", Model.Samples); }
+</div>

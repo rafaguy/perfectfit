@@ -1,0 +1,38 @@
+﻿@using Mars.PerfectFit.Presentation.Web.Helpers
+@model Mars.PerfectFit.Presentation.Web.ViewModels.MoneyBackGuaranteeConfirmationViewModel
+@using ContentModels = Umbraco.Web.PublishedContentModels;
+@{
+	Layout = "DefaultLayout.cshtml";
+}
+
+<div class="page-container">
+    <div class="banner">
+        <picture>
+            <source media="(max-width: 1023px)" srcset="@Html.GetMediaItem(Model.ImageBanner)" />
+            <img class="img--responsive" src="@Html.GetMediaItem(Model.ImageBanner)" width="1280" height="696" alt="Banner" />
+        </picture>
+    </div>
+    <div class="section-container overlapping-section">
+        <header class="overlapping-section__header">
+            <h1><span class="bold">@Model.TitleBold</span>@Model.SimpleTitle</h1>
+        </header>
+        <div class="section-content">
+            <div class="mbg__form">
+                <div class="mbg__success">
+                    @{
+                        if (!string.IsNullOrEmpty(ViewBag.ErrMessageNum))
+                        {
+                            <p><span>@ViewBag.ErrMessageNum</span>@ViewBag.ErrMessage</p>
+                        }
+                        else
+                        {
+                            <p><span>@Model.SuccessMessage</span>@Model.SuccessMessageDescription</p>
+                        }
+                    }
+                </div>
+                <a class="btn btn--form" href="/">@LocalizationHelper.GetDictionaryItem("Money - Back -Guarantee - Confirmation - ReturnToHome - Button - Text")</a>
+               
+            </div>
+        </div>
+    </div>
+</div>

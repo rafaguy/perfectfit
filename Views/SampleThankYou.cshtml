@@ -1,0 +1,37 @@
+﻿@using Mars.PerfectFit.Presentation.Web.Helpers
+@model Mars.PerfectFit.Presentation.Web.ViewModels.SampleThankYouViewModel
+@{
+	Layout = "DefaultLayout.cshtml";
+}
+
+<div class="page-container coupon-confirmation">
+    <div class="banner">
+        <picture>
+            <source media="(max-width: 1023px)" srcset="@Model.Banner.Path"/>
+            <img class="img--responsive" src="@Model.Banner.Path" width="1280" height="696" alt="@Model.Banner.Alt"/>
+        </picture>
+    </div>
+
+    <div class="overview-box">
+        <header class="overlapping-section__header overlapping-section__header--large">
+            <h1 class="overview-box__title">
+                <span class="overview-box__subtitle">@Model.Title</span>
+                <span class="overview-box__subtitle--simple">@Model.SubTitle</span>
+            </h1>
+            <p class="overlapping-section__paragraph">
+                <span class="overlapping-section__paragraph">@Html.Raw(HttpUtility.HtmlDecode(ViewBag.Message))</span>
+            </p>
+        </header>
+        <div class="section-content">
+            <div class="container-flex">
+                <a class="btn btn--link btn--form btn--flex" href="/"><span>@LocalizationHelper.GetDictionaryItem("Sample - Thank You - Link - Go Back Home")</span></a>
+               @if (TempData["Error"] != null)
+               {
+                   <a class="btn btn--link btn--form btn--flex" href="@Model.OffersUrl">
+                       <span>@LocalizationHelper.GetDictionaryItem("Sample - Thank You - Link - Go Back Offers")</span>
+                   </a>
+               }
+            </div>
+        </div>
+    </div>
+</div>

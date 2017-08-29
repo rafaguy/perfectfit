@@ -1,0 +1,86 @@
+﻿@using Mars.PerfectFit.Presentation.Web.Helpers
+@model Mars.PerfectFit.Presentation.Web.ViewModels.ProductListingViewViewModel
+
+@{
+    Layout = "DefaultLayout.cshtml";
+}
+
+<div class="page-container">
+    <div class="banner">
+        <div class="banner__container">
+            <div class="row expanded">
+                <div class="small-12 large-12 columns no-padding">
+                    <picture>
+                        <source media="(max-width: 1023px)" srcset="@Html.GetMediaItem(Model.ImageBanner)"/>
+                        <img class="img--responsive" src="@Html.GetMediaItem(Model.ImageBanner)" width="1280" height="696" alt="Premium cat Banner"/>
+                    </picture>
+                </div>
+            </div>
+        </div>
+        <div class="banner__info">
+            <p class="banner__title">@Model.BannerTitle</p>
+            <p class="banner__text">@Model.BannerText</p>
+        </div>
+    </div>
+    <div class="section-container overview-container">
+        <div class="overview-box">
+            <h1 class="overview-box__title">
+                @Model.PageHeading<span class="overview-box__subtitle">@Model.PageSubHeading</span></h1>
+            <p class="overview-box__paragraph">@Model.PageDescription</p>
+        </div>
+    </div>
+    <div class="section-container total-five-container" id="totalfive">
+        <div class="total-five__overview">
+            <div class="total-five__img">
+                <img class="img--responsive" src="@Html.GetMediaItem(Model.ProductFormula.DesktopImage)" width="590" height="456" alt="PERFECT Fit combines 5 benefits addressing the most common pets health needs"/>
+            </div>
+            <div class="divider"></div>
+            <div class="total-five__description">
+                <h2 class="total-five__title">@Model.ProductFormula.Title</h2>
+                <p class="total-five__paragraph">@Model.ProductFormula.Description</p>
+                <button class="btn btn--total-five js-totalfive learn-more-total-five" type="button">
+                    <span>Learn More</span><i class="icon-navigate-next"></i>
+                </button>
+            </div>
+        </div>
+        <div class="total-five__carousel">
+            <div class="row">
+                <div class="small-12 large-12 columns no-padding">
+                    <div class="carousel__exit">
+                        <i class="icon-close"></i>
+                    </div>
+                </div>
+                <div class="small-12 large-12 columns no-padding">
+                    <div class="carousel">
+                        @foreach (var benefit in Model.ProductFormula.Benefits)
+                        {
+                            <div class="carousel__item-wrapper">
+                                <div class="row">
+                                    <div class="small-12 large-6 large-push-6 columns">
+                                        <div class="carousel__item">
+                                            <img src="@Html.GetMediaItem(benefit.Image)" width="200" height="200" alt="total five"/>
+                                        </div>
+                                    </div>
+                                    <div class="small-12 large-6 large-pull-6 columns">
+                                        <div class="carousel__item">
+                                            <div class="carousel__item-description">
+                                                <h3 class="carousel__item-title">@benefit.Title</h3>
+                                                <p class="carousel__item-paragraph">@benefit.Description</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="section-container product-list-container">
+        @{ Html.RenderPartial("~/Views/Partials/Products.cshtml", Model.Products); }
+        <div class="load-more__wrapper">
+            <span class="load-more__text">Load more</span><i class="icon-arrow-down load-more__icon js-loadmore"></i>
+        </div>
+    </div>
+</div>

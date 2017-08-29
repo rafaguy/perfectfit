@@ -1,0 +1,526 @@
+﻿@using ContentModels = Umbraco.Web.PublishedContentModels;
+@using Mars.PerfectFit.Presentation.Web.Helpers
+@model Mars.PerfectFit.Presentation.Web.ViewModels.RegistrationPetsViewModel
+@using Mars.PerfectFit.Presentation.Web.ViewModels;
+
+@{
+    Layout = "DefaultLayout.cshtml";
+}
+<div class="page-container">
+    <div class="banner">
+        <picture>
+            <source media="(max-width: 1023px)" srcset="@Html.GetMediaItem(Model.Banner)" />
+            <img class="img--responsive" src="@Html.GetMediaItem(Model.Banner)" width="1280" height="696" alt="Hello" />
+        </picture>
+    </div>
+    <div class="registration-pet">
+        <div class="section-container overlapping-section">
+            <header class="overlapping-section__header">
+                <h1 class="overview-box__title">@LocalizationHelper.GetDictionaryItem("Registration - Pet - Tell - US - Text")<span class="overview-box__subtitle">@Model.Title</span></h1>
+                <div class="overlapping-section__introduction">
+                    <p class="overlapping-section__paragraph">@Model.Description</p>
+                </div>
+            </header>
+            <div class="section-content">
+                <ul class="tabs" role="tablist">
+                    <li class="tabs__title"><a class="tabs__link" href="javascript:history.go(-1)" role="tab" aria-selected="false">@LocalizationHelper.GetDictionaryItem("Registration - Pet - MyProfile - header")</a></li>
+                    <li class="tabs__title tabs__title--active"><a class="tabs__link" href="#my-pets" role="tab" aria-selected="true">@LocalizationHelper.GetDictionaryItem("Registration - Pet - MyPets - header")</a></li>
+                </ul>
+                <div class="tabs-content">
+                    <div class="tabs__panel tabs__panel--active" id="my-pets">
+                        <form class="pet-registration-form" id="register-pet-form-index-0" action="/umbraco/Surface/RegistrationPets/PetsValidation" method="POST" enctype="multipart/form-data">
+                            <p class="label">@Html.Raw(@LocalizationHelper.GetDictionaryItem("Registration - Pet - QuestionCatDog")) </p>
+                            <div class="pet-types__container">
+                                <label class="pet-type__thumbnail pet-type__thumbnail--cat" for="registration-pet-tab-cat-index-0" data-category="cat"></label>
+                                <label class="pet-type__thumbnail pet-type__thumbnail--dog" for="registration-pet-tab-dog-index-0" data-category="dog"></label>
+                            </div>
+                            <div class="pet-type__captions"><span class="pet-type__caption">@LocalizationHelper.GetDictionaryItem("Registration - Pet - Cat - choice")</span><span class="pet-type__caption">@LocalizationHelper.GetDictionaryItem("Registration - Pet - Dog - choice")</span></div>
+                            <input class="visibility--hidden" id="registration-pet-tab-cat-index-0" type="radio" name="petType" value="cat" />
+                            <input class="visibility--hidden" id="registration-pet-tab-dog-index-0" type="radio" name="petType" value="dog" />
+                            <div id="registration-pet-tab-content-cat0">
+                                <div class="pet-type__thumbnail pet-type__thumbnail--cat pet-type__placeholder" data-category="cat">
+                                    <input class="js-camera-pet" id="cat-picture-click-index-0" type="file" accept="image/jpeg, image/png, image/x-png, image/gif" name="catpetPhotoUrl" />
+                                    <label class="pet-type__icon" for="cat-picture-click-index-0"><span class="rounded-button rounded-button--bordered"><i class="icon-camera icon-medium"></i></span></label>
+                                </div><span class="pet-type__max-size-msg">"@LocalizationHelper.GetDictionaryItem("Registration - Pet - Picture - size - Text")"</span>
+                                <div class="pet-form-group">
+                                    <div class="row">
+                                        <div class="small-12 large-6 columns">
+                                            <label for="cat-name-index-0">@LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - Name")<span class="form-item__info"></span></label>
+                                            <input type="text" name="catpetName" id="cat-name-index-0" required="required" data-parsley-required="data-parsley-required" data-parsley-error-message="@LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - Name - Error")" data-parsley-group="cat-form" autocomplete="off" data-parsley-pattern= "^[^0-9^(#|*|-|+|/|:|;|,|~|`|=|<|>|\\|?|&|$|@@|%|(|))]+$"/>
+                                        </div>
+                                        <div class="small-12 large-6 columns">
+                                            <div class="radio-button-container">
+                                                <p class="label">@LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - Gender")</p>
+                                                <input class="form-item" value="2" type="radio" name="catpetGender" id="cat-gender-male-index-0" data-parsley-required="data-parsley-required" data-parsley-error-message="@LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - Gender - Error")" data-parsley-group="cat-form" />
+                                                <label for="cat-gender-male-index-0">@LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - Gender - Male")</label>
+                                                <input class="form-item" value="1" type="radio" name="catpetGender" id="cat-gender-female-index-0" data-parsley-required="data-parsley-required" data-parsley-error-message="@LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - Gender - Error")" data-parsley-group="cat-form" />
+                                                <label for="cat-gender-female-index-0">@LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - Gender - Female")</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="select-date">
+                                            <div class="small-12 large-6 columns">
+                                                <p class="label">@LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - Age")</p>
+                                                <div class="slider__wrapper">
+                                                    <div class="slider" data-slider="data-slider" data-initial-start="0" data-start="0" data-end="19" data-step="1" aria-controls="cat-age-ladder-index-0">
+                                                        <span class="slider__dots" data-dots="2"><span class="slider__dot"><i class="icon-dot"></i></span><span class="slider__dot"><i class="icon-dot"></i></span></span><span class="slider-handle" data-slider-handle="data-slider-handle" role="slider" aria-controls="cat-age-ladder-index-0" aria-valuenow="0" aria-valuemin="0" aria-valuemax="19">
+                                                            <input id="cat-age-ladder-index-0" type="hidden" name="catpetLadderAge" /><span class="slider__tooltip">-6m</span>
+                                                        </span><span class="slider-fill" data-slider-fill="data-slider-fill"></span>
+                                    <ul class="slider__captions" data-captions="2">
+                                      <li class="slider__caption"><span>-6m</span></li>
+                                      <li class="slider__caption"><span>14+</span></li>
+                                    </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="small-12 large-6 columns">
+                                                <p class="label">@LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - BirthDate")</p>
+                                                <div class="select-date__wrapper" data-category="cat">
+                                                    <select class="js-date-day" id="day-cat-age-list-index-0" aria-label="Day" name="catpetBirthDay">
+                                                        <option value="1">1</option>
+                                                        <option value="2">2</option>
+                                                        <option value="3">3</option>
+                                                        <option value="4">4</option>
+                                                        <option value="5">5</option>
+                                                        <option value="6">6</option>
+                                                        <option value="7">7</option>
+                                                        <option value="8">8</option>
+                                                        <option value="9">9</option>
+                                                        <option value="10">10</option>
+                                                        <option value="11">11</option>
+                                                        <option value="12">12</option>
+                                                        <option value="13">13</option>
+                                                        <option value="14">14</option>
+                                                        <option value="15">15</option>
+                                                        <option value="16">16</option>
+                                                        <option value="17">17</option>
+                                                        <option value="18">18</option>
+                                                        <option value="19">19</option>
+                                                        <option value="20">20</option>
+                                                        <option value="21">21</option>
+                                                        <option value="22">22</option>
+                                                        <option value="23">23</option>
+                                                        <option value="24">24</option>
+                                                        <option value="25">25</option>
+                                                        <option value="26">26</option>
+                                                        <option value="27">27</option>
+                                                        <option value="28">28</option>
+                                                        <option value="29">29</option>
+                                                        <option value="30">30</option>
+                                                        <option value="31">31</option>
+                                                    </select>
+                                                    <select class="js-date-month" id="month-cat-age-list-index-0" aria-label="Month" name="catpetBirthMonth">
+                                                        <option selected="selected">@LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - Month") </option>
+                                                        <option value="0"> @LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - Month-january")   </option>
+                                                        <option value="1"> @LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - Month-february")   </option>
+                                                        <option value="2"> @LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - Month-March")     </option>
+                                                        <option value="3"> @LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - Month-April")     </option>
+                                                        <option value="4"> @LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - Month-May")       </option>
+                                                        <option value="5"> @LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - Month-June")       </option>
+                                                        <option value="6"> @LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - Month-July")       </option>
+                                                        <option value="7"> @LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - Month-August")     </option>
+                                                        <option value="8"> @LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - Month-September")   </option>
+                                                        <option value="9">  @LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - Month-October")    </option>
+                                                        <option value="10"> @LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - Month-November")  </option>
+                                                        <option value="11"> @LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - Month-December")  </option>
+                                                    </select>
+                                                    <select class="js-date-year" id="year-cat-age-list-index-0" aria-label="Year" name="catpetBirthYear">
+                                                        <option selected="selected">@LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - Year")</option>
+                                                        <option value="2017">2017</option>
+                                                        <option value="2016">2016</option>
+                                                        <option value="2015">2015</option>
+                                                        <option value="2014">2014</option>
+                                                        <option value="2013">2013</option>
+                                                        <option value="2012">2012</option>
+                                                        <option value="2011">2011</option>
+                                                        <option value="2010">2010</option>
+                                                        <option value="2009">2009</option>
+                                                        <option value="2008">2008</option>
+                                                        <option value="2007">2007</option>
+                                                        <option value="2006">2006</option>
+                                                        <option value="2005">2005</option>
+                                                        <option value="2004">2004</option>
+                                                        <option value="2003">2003</option>
+                                                        <option value="2002">2002</option>
+                                                        <option value="2001">2001</option>
+                                                        <option value="2000">2000</option>
+                                                        <option value="1999">1999</option>
+                                                        <option value="1998">1998</option>
+                                                        <option value="1997">1997</option>
+                                                        <option value="1996">1996</option>
+                                                        <option value="1995">1995</option>
+                                                    </select>
+                                                </div><span class="select-date__error-message">@LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - valideDateError")</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="small-12 column">
+                                            <div class="breed" data-url="/umbraco/Surface/RegistrationPets/GetBreeds" data-category="cat" id="cat-picture-index-0">
+                                                <div class="row expanded">
+                                                    <div class="small-12 large-6 columns">
+                                                        <label for="cat-breed-index-0"> @LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - Breed - text")<span class="form-item__info"></span></label>
+                                                        <input class="breed__search" type="text" name="catpetBreed" id="cat-breed-index-0" />
+                                                        <input class="breed__value" type="hidden" name="catpetBreedId" id="cat-breed-hidden-index-0" />
+                                                    </div>
+                                                    <div class="small-12 large-12 columns">
+                                                        <div class="breed__carousel"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="small-12 large-6 columns">
+                                            <div class="form-item">
+
+                                                <label for="cat-spend-time-index-0">@LocalizationHelper.GetDictionaryItem("Edit - Profile - Form - Pet - SpendTime - Default - Text")</label>
+                                                <select id="cat-spend-time-index-0" name="catpetSpendTime" data-question="@LocalizationHelper.GetDictionaryItem("Edit - Profile - Form - Pet - SpendTime - Default - Text")" data-question-male="@LocalizationHelper.GetDictionaryItem("Edit - Profile - Form - Pet - SpendTime - Male")" data-question-female="@LocalizationHelper.GetDictionaryItem("Edit - Profile - Form - Pet - SpendTime - Female")">
+                                                    <option value="0" selected="selected">@LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - Select - Text")</option>
+                                                    <option value="3">@LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - Indoors - Text")</option>
+                                                    <option value="1">@LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - Outdoors - Text")</option>
+                                                    <option value="2">@LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - Both - Text")</option>
+                                                </select>
+
+                                            </div>
+                                        </div>
+                                        <div class="small-12 large-6 columns">
+                                            <div class="radio-button-container">
+                                                <p class="label" data-question="@LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - IsSterillized - Default")" data-question-male="@LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - IsSterillized")" data-question-female="@LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - IsSterillized - Female")">@LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - IsSterillized")</p>
+                                                <input class="form-item" value="Yes" type="radio" name="catisPetSterilized" id="cat-checkbox-sterilized-yes-index-0" data-parsley-required="data-parsley-required" data-parsley-error-message="@LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - Sterillized - choice - Yes -Error")" data-parsley-group="cat-form" />
+                                                <label for="cat-checkbox-sterilized-yes-index-0">@LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - Sterillized - choice - Yes")</label>
+                                                <input class="form-item" value="No" type="radio" name="catisPetSterilized" id="cat-checkbox-sterilized-no-index-0" data-parsley-required="data-parsley-required" data-parsley-error-message="@LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - Sterillized - choice - Yes -Error")" data-parsley-group="cat-form" />
+                                                <label for="cat-checkbox-sterilized-no-index-0">@LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - Sterillized - choice - No")</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="small-12 large-6 columns">
+                                            <p class="label">@LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - Coat - Text")</p>
+                                            <div class="slider__wrapper">
+                                                <div class="slider" data-slider="data-slider" data-initial-start="0" data-start="1" data-end="3" data-step="1" aria-controls="cat-coat-index-0">
+                                                    <span class="slider__dots" data-dots="3"><span class="slider__dot"><i class="icon-dot"></i></span><span class="slider__dot"><i class="icon-dot"></i></span><span class="slider__dot"><i class="icon-dot"></i></span></span><span class="slider-handle" data-slider-handle="data-slider-handle" role="slider" aria-controls="cat-coat-index-0" aria-valuenow="0" aria-valuemin="1" aria-valuemax="3">
+                                                        <input id="cat-coat-index-0" type="hidden" name="catpetCoat" />
+                                                    </span><span class="slider-fill" data-slider-fill="data-slider-fill"></span>
+                                  <ul class="slider__captions" data-captions="3">
+                                    <li class="slider__caption"><span>@LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - Coat - Long")</span></li>
+                                    <li class="slider__caption"><span> @LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - Coat - Medium")</span></li>
+                                    <li class="slider__caption"><span> @LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - Coat - Short")</span></li>
+                                  </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="small-12 large-6 columns">
+                                            <p class="label" data-question="@LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - cat - often - Home")" data-question-male="@LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - cat - often - Home - Male")" data-question-female="@LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - cat - often - Home - Female")">@LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - cat - often - Home")</p>
+
+                                            <div class="slider__wrapper">
+                                                <div class="slider" data-slider="data-slider" data-initial-start="0" data-start="1" data-end="4" data-step="1" aria-controls="cat-alone-sitter-index-0">
+                                                    <span class="slider__dots" data-dots="4"><span class="slider__dot"><i class="icon-dot"></i></span><span class="slider__dot"><i class="icon-dot"></i></span><span class="slider__dot"><i class="icon-dot"></i></span><span class="slider__dot"><i class="icon-dot"></i></span></span><span class="slider-handle" data-slider-handle="data-slider-handle" role="slider" aria-controls="cat-alone-sitter-index-0" aria-valuenow="0" aria-valuemin="0" aria-valuemax="3">
+                                                        <input id="cat-alone-sitter-index-0" type="hidden" name="catpetAloneSitter" />
+                                                    </span><span class="slider-fill" data-slider-fill="data-slider-fill"></span>
+                                  <ul class="slider__captions" data-captions="4">
+                                    <li class="slider__caption"><span>@LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - cat - often - Home - workdays")</span></li>
+                                    <li class="slider__caption"><span>@LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - cat - often - Home - weekends")</span></li>
+                                    <li class="slider__caption"><span>@LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - cat - often - Home - Holidays")</span></li>
+                                    <li class="slider__caption"><span>@LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - cat - often - Home - Never")</span></li>
+                                  </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="small-12 large-6 columns end">
+                                            <div class="radio-button-container">
+                                                <p class="label" data-question="@LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - cat - Tried - light")" data-question-male="@LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - cat - Tried - light - Male")" data-question-female="@LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - cat - Tried - light - Female")">@LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - cat - Tried - light")</p>
+
+                                                <input class="form-item" value="Yes" type="radio" name="catisProductTriedBefore" id="cat-product-tried-before-yes-index-0" />
+                                                <label for="cat-product-tried-before-yes-index-0">@LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - cat - Tried - light - Yes")</label>
+                                                <input class="form-item" value="No" type="radio" name="catisProductTriedBefore" id="cat-product-tried-before-no-index-0" />
+                                                <label for="cat-product-tried-before-no-index-0">@LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - cat - Tried - light - No")</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <p class="mandatory-info">@LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - Mandatory - Text")</p>
+                                </div>
+                            </div>
+                            <div id="registration-pet-tab-content-dog0">
+                                <div class="pet-type__thumbnail pet-type__thumbnail--dog pet-type__placeholder" data-category="dog">
+                                    <input class="js-camera-pet" id="dog-picture-click-index-0" type="file" accept="image/jpeg, image/png, image/x-png, image/gif" name="dogpetPhotoUrl" />
+                                    <label class="pet-type__icon" for="dog-picture-click-index-0"><span class="rounded-button rounded-button--bordered"><i class="icon-camera icon-medium"></i></span></label>
+                                </div><span class="pet-type__max-size-msg">@LocalizationHelper.GetDictionaryItem("Registration - Pet - Picture - size - Text")</span>
+                                <div class="pet-form-group">
+                                    <div class="row">
+                                        <div class="small-12 large-6 columns">
+                                            <label for="dog-name-index-0">@LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - Name")<span class="form-item__info"></span></label>
+                                            <input type="text" name="dogpetName" id="dog-name-index-0" required="required" data-parsley-required="data-parsley-required" data-parsley-error-message="@Html.Raw(@LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - Name - dog - error"))"  data-parsley-group="dog-form" autocomplete="off" data-parsley-pattern= "^[^0-9^(#|*|-|+|/|:|;|,|~|`|=|<|>|\\|?|&|$|@@|%|(|))]+$"/>
+                                        </div>
+                                        <div class="small-12 large-6 columns">
+                                            <div class="radio-button-container">
+                                                <p class="label">@LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - Gender")</p>
+                                                <input class="form-item" value="2" type="radio" name="dogpetGender" id="dog-gender-male-index-0" data-parsley-required="data-parsley-required" data-parsley-error-message="@LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - Gender - dog - Error")" data-parsley-group="dog-form" />
+                                                <label for="dog-gender-male-index-0">@LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - Gender - Male")</label>
+                                                <input class="form-item" value="1" type="radio" name="dogpetGender" id="dog-gender-female-index-0" data-parsley-required="data-parsley-required" data-parsley-error-message="@LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - Gender - dog - Error")" data-parsley-group="dog-form" />
+                                                <label for="dog-gender-female-index-0">@LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - Gender - Female")</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="select-date">
+                                            <div class="small-12 large-6 columns">
+                                                <p class="label">@LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - Age")</p>
+                                                <div class="slider__wrapper">
+                                                    <div class="slider" data-slider="data-slider" data-initial-start="0" data-start="0" data-end="19" data-step="1" aria-controls="dog-age-ladder-index-0">
+                                                        <span class="slider__dots" data-dots="2"><span class="slider__dot"><i class="icon-dot"></i></span><span class="slider__dot"><i class="icon-dot"></i></span></span><span class="slider-handle" data-slider-handle="data-slider-handle" role="slider" aria-controls="dog-age-ladder-index-0" aria-valuenow="0" aria-valuemin="0" aria-valuemax="19">
+                                                            <input id="dog-age-ladder-index-0" type="hidden" name="dogpetLadderAge" /><span class="slider__tooltip">-6m</span>
+                                                        </span><span class="slider-fill" data-slider-fill="data-slider-fill"></span>
+                                    <ul class="slider__captions" data-captions="2">
+                                      <li class="slider__caption"><span>-6m</span></li>
+                                      <li class="slider__caption"><span>14+</span></li>
+                                    </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="small-12 large-6 columns">
+                                                <p class="label">@LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - BirthDate")</p>
+                                                <div class="select-date__wrapper" data-category="dog">
+                                                    <select class="js-date-day" id="day-dog-age-list-index-0" aria-label="Day" name="dogpetBirthDay">
+                                                        <option value="1">1</option>
+                                                        <option value="2">2</option>
+                                                        <option value="3">3</option>
+                                                        <option value="4">4</option>
+                                                        <option value="5">5</option>
+                                                        <option value="6">6</option>
+                                                        <option value="7">7</option>
+                                                        <option value="8">8</option>
+                                                        <option value="9">9</option>
+                                                        <option value="10">10</option>
+                                                        <option value="11">11</option>
+                                                        <option value="12">12</option>
+                                                        <option value="13">13</option>
+                                                        <option value="14">14</option>
+                                                        <option value="15">15</option>
+                                                        <option value="16">16</option>
+                                                        <option value="17">17</option>
+                                                        <option value="18">18</option>
+                                                        <option value="19">19</option>
+                                                        <option value="20">20</option>
+                                                        <option value="21">21</option>
+                                                        <option value="22">22</option>
+                                                        <option value="23">23</option>
+                                                        <option value="24">24</option>
+                                                        <option value="25">25</option>
+                                                        <option value="26">26</option>
+                                                        <option value="27">27</option>
+                                                        <option value="28">28</option>
+                                                        <option value="29">29</option>
+                                                        <option value="30">30</option>
+                                                        <option value="31">31</option>
+                                                    </select>
+                                                    <select class="js-date-month" id="month-dog-age-list-index-0" aria-label="Month" name="dogpetBirthMonth">
+                                                        <option selected="selected">@LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - Month")</option>
+                                                        <option value="0"> @LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - Month-january")      </option>
+                                                        <option value="1"> @LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - Month-february")   </option>
+                                                        <option value="2"> @LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - Month-March")        </option>
+                                                        <option value="3"> @LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - Month-April")      </option>
+                                                        <option value="4"> @LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - Month-May")        </option>
+                                                        <option value="5"> @LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - Month-June")       </option>
+                                                        <option value="6"> @LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - Month-July")        </option>
+                                                        <option value="7"> @LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - Month-August")        </option>
+                                                        <option value="8"> @LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - Month-September")   </option>
+                                                        <option value="9"> @LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - Month-October")     </option>
+                                                        <option value="10"> @LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - Month-November")    </option>
+                                                        <option value="11"> @LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - Month-December")     </option>
+                                                    </select>
+                                                    <select class="js-date-year" id="year-dog-age-list-index-0" aria-label="Year" name="dogpetBirthYear">
+                                                        <option selected="selected">@LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - Year")</option>
+                                                        <option value="2017">2017</option>
+                                                        <option value="2016">2016</option>
+                                                        <option value="2015">2015</option>
+                                                        <option value="2014">2014</option>
+                                                        <option value="2013">2013</option>
+                                                        <option value="2012">2012</option>
+                                                        <option value="2011">2011</option>
+                                                        <option value="2010">2010</option>
+                                                        <option value="2009">2009</option>
+                                                        <option value="2008">2008</option>
+                                                        <option value="2007">2007</option>
+                                                        <option value="2006">2006</option>
+                                                        <option value="2005">2005</option>
+                                                        <option value="2004">2004</option>
+                                                        <option value="2003">2003</option>
+                                                        <option value="2002">2002</option>
+                                                        <option value="2001">2001</option>
+                                                        <option value="2000">2000</option>
+                                                        <option value="1999">1999</option>
+                                                        <option value="1998">1998</option>
+                                                        <option value="1997">1997</option>
+                                                        <option value="1996">1996</option>
+                                                        <option value="1995">1995</option>
+                                                    </select>
+                                                </div><span class="select-date__error-message">@LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - valideDateError")</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="small-12 column">
+                                            <div class="breed" data-url="/umbraco/Surface/RegistrationPets/GetBreeds" data-category="dog" id="dog-picture-index-0">
+                                                <div class="row expanded">
+                                                    <div class="small-12 large-6 columns">
+                                                        <label for="dog-breed-index-0">@LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - Breed - text")<span class="form-item__info"></span></label>
+                                                        <input class="breed__search" type="text" name="dogpetBreed" id="dog-breed-index-0" />
+                                                        <input class="breed__value" type="hidden" name="dogpetBreedId" id="dog-breed-hidden-index-0" />
+                                                    </div>
+                                                    <div class="small-12 large-12 columns">
+                                                        <div class="breed__carousel"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="small-12 large-6 columns">
+                                            <p class="label" data-question="@LocalizationHelper.GetDictionaryItem("Registration - Pet - Dog - weight - Question")" data-question-male="@LocalizationHelper.GetDictionaryItem("Registration - Pet - Dog - weight - Question - Male")" data-question-female="@LocalizationHelper.GetDictionaryItem("Registration - Pet - Dog - weight - Question - Female")">
+                                            @LocalizationHelper.GetDictionaryItem("Registration - Pet - Dog - weight - Question")</p>
+
+                                            <div class="slider__wrapper">
+                                                <div class="slider" data-slider="data-slider" data-initial-start="0" data-start="17" data-end="21" data-step="1" aria-controls="dog-weigh-index-0">
+                                                    <span class="slider__dots" data-dots="5"><span class="slider__dot"><i class="icon-dot"></i></span><span class="slider__dot"><i class="icon-dot"></i></span><span class="slider__dot"><i class="icon-dot"></i></span><span class="slider__dot"><i class="icon-dot"></i></span><span class="slider__dot"><i class="icon-dot"></i></span></span><span class="slider-handle" data-slider-handle="data-slider-handle" role="slider" aria-controls="dog-weigh-index-0" aria-valuenow="0" aria-valuemin="17" aria-valuemax="21">
+                                                        <input id="dog-weigh-index-0" type="hidden" name="dogpetWeigh" />
+                                                    </span><span class="slider-fill" data-slider-fill="data-slider-fill"></span>
+                                  <ul class="slider__captions" data-captions="5">
+                                    <li class="slider__caption"><span>0 - 5 Kg</span></li>
+                                    <li class="slider__caption"><span>6 - 10 Kg</span></li>
+                                    <li class="slider__caption"><span>11 - 15 Kg</span></li>
+                                    <li class="slider__caption"><span>16 - 25 Kg</span></li>
+                                    <li class="slider__caption"><span>+ 25 Kg</span></li>
+                                  </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="small-12 large-6 columns">
+
+                                                <p class="label" data-question="@LocalizationHelper.GetDictionaryItem("Registration - Pet - Dog - Active - Question")" data-question-male="@LocalizationHelper.GetDictionaryItem("Registration - Pet - Dog - Active - Question - Male")" data-question-female="@LocalizationHelper.GetDictionaryItem("Registration - Pet - Dog - Active - Question - Female")">@LocalizationHelper.GetDictionaryItem("Registration - Pet - Dog - Active - Question")</p>
+
+                                            <div class="slider__wrapper">
+                                                <div class="slider" data-slider="data-slider" data-initial-start="0" data-start="1" data-end="3" data-step="1" aria-controls="dog-active-index-0">
+                                                    <span class="slider__dots" data-dots="3"><span class="slider__dot"><i class="icon-dot"></i></span><span class="slider__dot"><i class="icon-dot"></i></span><span class="slider__dot"><i class="icon-dot"></i></span></span><span class="slider-handle" data-slider-handle="data-slider-handle" role="slider" aria-controls="dog-active-index-0" aria-valuenow="0" aria-valuemin="1" aria-valuemax="3">
+                                                        <input id="dog-active-index-0" type="hidden" name="dogpetActive" />
+                                                    </span><span class="slider-fill" data-slider-fill="data-slider-fill"></span>
+                                  <ul class="slider__captions" data-captions="3">
+                                    <li class="slider__caption"><span> @LocalizationHelper.GetDictionaryItem("Registration - Pet - Dog - Active - Hardly")</span></li>
+                                    <li class="slider__caption"><span>@LocalizationHelper.GetDictionaryItem("Registration - Pet - Dog - Active - Regularly")</span></li>
+                                    <li class="slider__caption"><span>@LocalizationHelper.GetDictionaryItem("Registration - Pet - Dog - Active - Very")</span></li>
+                                  </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="small-12 large-6 columns">
+                                            <div class="radio-button-container">
+                                                <p class="label" data-question="@LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - IsSterillized - Default - Dog")" data-question-male="@LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - IsSterillized - Dog")" data-question-female="@LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - IsSterillized - Dog - Female")">@LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - IsSterillized - Dog")</p>
+                                                <input class="form-item" value="Yes" type="radio" name="dogisPetSterilized" id="dog-checkbox-sterilized-yes-index-0" data-parsley-required="data-parsley-required" data-parsley-error-message="@LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - isSterilized - dog - Error")" data-parsley-group="dog-form" />
+                                                <label for="dog-checkbox-sterilized-yes-index-0">@LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - Sterillized - choice - Yes")</label>
+                                                <input class="form-item" value="No" type="radio" name="dogisPetSterilized" id="dog-checkbox-sterilized-no-index-0" data-parsley-required="data-parsley-required" data-parsley-error-message="@LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - isSterilized - dog - Error")" data-parsley-group="dog-form" />
+                                                <label for="dog-checkbox-sterilized-no-index-0">@LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - Sterillized - choice - No")</label>
+                                            </div>
+                                        </div>
+                                        <div class="small-12 large-6 columns">
+
+                                            <p class="label" data-question="@LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - dog - often - Home")" data-question-male="@LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - dog - often - Home - Male")" data-question-female="@LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - dog - often - Home - Female")">@LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - dog - often - Home")</p>
+
+                                            <div class="slider__wrapper">
+                                                <div class="slider" data-slider="data-slider" data-initial-start="0" data-start="1" data-end="4" data-step="1" aria-controls="dog-alone-sitter-index-0">
+                                                    <span class="slider__dots" data-dots="4"><span class="slider__dot"><i class="icon-dot"></i></span><span class="slider__dot"><i class="icon-dot"></i></span><span class="slider__dot"><i class="icon-dot"></i></span><span class="slider__dot"><i class="icon-dot"></i></span></span><span class="slider-handle" data-slider-handle="data-slider-handle" role="slider" aria-controls="dog-alone-sitter-index-0" aria-valuenow="0" aria-valuemin="0" aria-valuemax="3">
+                                                        <input id="dog-alone-sitter-index-0" type="hidden" name="dogpetAloneSitter" />
+                                                    </span><span class="slider-fill" data-slider-fill="data-slider-fill"></span>
+                                  <ul class="slider__captions" data-captions="4">
+                                    <li class="slider__caption"><span>@LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - cat - often - Home - workdays")</span></li>
+                                    <li class="slider__caption"><span>@LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - cat - often - Home - weekends")</span></li>
+                                    <li class="slider__caption"><span>@LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - cat - often - Home - Holidays")</span></li>
+                                    <li class="slider__caption"><span>@LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - cat - often - Home - Never")</span></li>
+                                  </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="small-12 large-6 columns end">
+                                            <p class="label" data-question="@LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - Dog - Tried - light-text")" data-question-male="@LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - Dog - Tried - light-text - Male")" data-question-female="@LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - Dog - Tried - light-text - Female")">@LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - Dog - Tried - light-text")</p>
+
+                                            <input class="form-item" value="Yes" type="radio" name="dogisProductTriedBefore" id="dog-product-tried-before-yes-index-0" />
+                                            <label for="dog-product-tried-before-yes-index-0">@LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - cat - Tried - light - Yes")</label>
+                                            <input class="form-item" value="No" type="radio" name="dogisProductTriedBefore" id="dog-product-tried-before-no-index-0" />
+                                            <label for="dog-product-tried-before-no-index-0">@LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - cat - Tried - light - No")</label>
+                                        </div>
+                                    </div>
+                                    <p class="mandatory-info">@LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - Mandatory - Text")</p>
+                                </div>
+                            </div>
+                            <p class="mandatory-info js-label-pet-choice">@LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - Mandatory - Text")</p>
+                            <span class="rounded-button registration-pet__remove-pet js-remove-pet"><i class="icon-trash"></i></span>
+
+                           @* <p class="mandatory-info">* Mandatory text</p><span class="rounded-button registration-pet__remove-pet js-remove-pet"><i class="icon-trash"></i></span>*@
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="section-container section-container--spaced registration-pet__add-another-pet">
+            <div class="section-heading js-add-another-pet">
+                <h2 class="section-heading__title">@Html.Raw(@LocalizationHelper.GetDictionaryItem("Registration - Pet - Add - AnotherPet")) </h2>
+                <div class="section-heading__icon"><i class="icon-plus"></i></div>
+            </div>
+            <div class="registration-pet__another-form"></div>
+        </div>
+        <div class="section-container section-container--spaced registration-pet__max-pets">
+            <div class="section-heading section-heading--spaced">
+                <h2 class="section-heading__title">@Html.Raw(@LocalizationHelper.GetDictionaryItem("Registration - Pet - Add - Up - 3pets"))
+                   </h2>
+            </div>
+        </div>
+        <div class="section-container section-container--spaced registration-pet__validation">
+            <div class="registration-pet__terms">
+                <form class="registration-pet__terms-form" action="#" method="post">
+                    <div class="registration-pet__condition-checkbox">
+                        <div class="row">
+                            <div class="small-12 columns">
+                                <div class="condition_item">
+                                    <input class="form-item" type="checkbox" name="hearPerfectFit" id="checkbox-opt-in-mars" />
+                                    <label for="checkbox-opt-in-mars">@LocalizationHelper.GetDictionaryItem("Registration - Pet - hear - From - PerfectFit")</label>
+                                </div>
+                            </div>
+                            <div class="small-12 columns">
+                                <div class="condition_item">
+                                    <input class="form-item" type="checkbox" name="termOfUse" id="checkbox-opt-in-mars-term-of-use" required="required" data-parsley-error-message="@LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - Mandatory - Text")" />
+                                    <label for="checkbox-opt-in-mars-term-of-use">@Html.Raw(HttpUtility.HtmlDecode(LocalizationHelper.GetDictionaryItem("Registration - Pet - Terms and Conditions")))</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row"></div>
+                    <div class="small-12 columns">
+                        <div class="registration-pet__condition">
+                            <p>@Html.Raw(HttpUtility.HtmlDecode(LocalizationHelper.GetDictionaryItem("Registration - Pet - Condition")))</p>
+                        </div>
+                    </div>
+                </form>
+                <div class="row">
+                    <div class="small-12 large-6 columns">
+                        <div class="registration-pet__register-btn">
+                            <button class="btn btn--block btn--form js-registration-pet" type="button">
+                                <span>@LocalizationHelper.GetDictionaryItem("Registration - Pet - Register - Button - Text")</span>
+                                <i class="icon-spinner icon-rotate-animate"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        </div>
+    </div>
+

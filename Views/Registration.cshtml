@@ -1,0 +1,49 @@
+﻿@using ContentModels = Umbraco.Web.PublishedContentModels;
+@using Mars.PerfectFit.Presentation.Web.Helpers
+@model Mars.PerfectFit.Presentation.Web.ViewModels.RegistrationProfileViewModel
+@using Mars.PerfectFit.Presentation.Web.ViewModels;
+
+@{
+    Layout = "DefaultLayout.cshtml";
+    var dupl = TempData["ErrorDuplicate"];
+}
+<div class="page-container">
+    <div class="banner">
+        <picture>
+            <source media="(max-width: 1023px)" srcset="@Html.GetMediaItem(Model.Banner)" />
+            <img class="img--responsive" src="@Html.GetMediaItem(Model.Banner)" width="1280" height="696" alt="Hello" />
+        </picture>
+    </div>
+    <div class="section-container overlapping-section">
+        <header class="overlapping-section__header">
+            <h1>@Model.Title<span class="perfectfit-plus-title"><img src="@Model.SiteLogo.Path" alt="Perfect Fit Logo" width="313" height="64"><i class="icon-plus"></i></span>@LocalizationHelper.GetDictionaryItem("Registration - Profile - Title2")</h1>
+            <div class="overlapping-section__introduction">
+                @if (dupl != null)
+                {
+                    <p class="overlapping-section__paragraph message message--visible">@dupl</p>
+                    <p class="overlapping-section__paragraph">@ViewBag.isRegistered <a class="link js-login" href="#">@LocalizationHelper.GetDictionaryItem("Registration - Profile - LoginLink")</a></p>
+
+                }
+                else
+                {
+                <p class="overlapping-section__paragraph">@Model.Description</p>
+                <p class="overlapping-section__paragraph">@ViewBag.isRegistered <a class="link js-login" href="#">@LocalizationHelper.GetDictionaryItem("Registration - Profile - LoginLink")</a></p>
+                }
+            </div>
+        </header>
+
+        <div class="section-content">
+            <ul class="tabs" role="tablist">
+                <li class="tabs__title tabs__title--active"><a class="tabs__link" href="#my-profile" role="tab" aria-selected="true">@LocalizationHelper.GetDictionaryItem("Registration - Profile - Tabs - Profile")</a></li>
+                <li class="tabs__title"><span class="tabs__link" role="tab" aria-selected="false">@LocalizationHelper.GetDictionaryItem("Registration - Profile - Tabs - Pet")</span></li>
+            </ul>
+            <div class="tabs-content">
+                <div class="tabs__panel tabs__panel--active" id="my-profile">
+                    @{
+                        Html.RenderPartial("~/Views/Partials/RegistrationPartial.cshtml", new RegisterModel());
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

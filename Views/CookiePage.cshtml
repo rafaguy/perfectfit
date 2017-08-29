@@ -1,0 +1,28 @@
+﻿@using Mars.PerfectFit.Presentation.Web.ViewModels
+@model Mars.PerfectFit.Presentation.Web.ViewModels.CookieViewModel
+
+@{
+	Layout = "DefaultLayout.cshtml";
+}
+
+<div class="page-container">
+    <div class="banner">
+        <picture>
+            <source media="(max-width: 1023px)" srcset="@Model.Banner.Path" />
+            <img class="img--responsive" src="@Model.Banner.Path" width="@Model.Banner.Width" height="@Model.Banner.Height" alt="@Model.Banner.Alt" />
+        </picture>
+    </div>
+    <div class="section-container overlapping-section">
+        <header class="overlapping-section__header">
+            <h1><span class="bold"></span></h1>
+        </header>
+        <div class="section-content">
+            
+                <div class="mbg__success">
+                     @Html.Raw(Model.Body)
+                </div>
+             
+            
+        </div>
+    </div>
+</div>

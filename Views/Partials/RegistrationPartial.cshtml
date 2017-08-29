@@ -1,0 +1,118 @@
+﻿@model Mars.PerfectFit.Presentation.Web.ViewModels.RegisterModel
+@using Mars.PerfectFit.Presentation.Web.Helpers
+@{
+    var requiredFieldErrorFirstName = @LocalizationHelper.GetDictionaryItem("Forms - Validation - Required - FirstName");
+    var requiredFieldErrorEmail = @LocalizationHelper.GetDictionaryItem("Forms - Validation - Required - Email");
+    var requiredFieldErrorPasswd = @LocalizationHelper.GetDictionaryItem("Forms - Validation - Required - Passwd");
+    var requiredFieldErrorAddress= @LocalizationHelper.GetDictionaryItem("Forms - Validation - Required - Address");
+    var requiredFieldErrorCity= @LocalizationHelper.GetDictionaryItem("Forms - Validation - Required - City");
+    var requiredFieldErrorPostcod = @LocalizationHelper.GetDictionaryItem("Forms - Validation - Required - Postcode");
+
+
+}
+
+
+@using (Html.BeginUmbracoForm("MemberRegistration", "Registration", null, new Dictionary<string, object> { { "class", "profile-registration-form" } }))
+{
+    @Html.ValidationSummary()
+    <div class="row">
+        <div class="small-12 large-6 columns">
+            <label for="first-name">@LocalizationHelper.GetDictionaryItem("Registration - Profile - Form - FirstName")<span class="form-item__info"></span></label>
+            @Html.TextBoxFor(x => x.FirstName, null, new { @id = "first-name", @required = "required", data_parsley_required = "", data_parsley_error_message = @requiredFieldErrorFirstName, autocomplete = "off", data_parsley_pattern= "^[^0-9^(#|*|-|+|/|:|;|,|~|`|=|<|>|\\|?|&|$|@|%|(|))]+$" })
+            @Html.ValidationMessageFor(x => x.FirstName, null, new { @class = "error-message" })
+        </div>
+        <div class="small-12 large-6 columns">
+            <label for="last-name">@LocalizationHelper.GetDictionaryItem("Registration - Profile - Form - LastName")<span class="form-item__info"></span></label>
+            @Html.TextBoxFor(x => x.LastName, null, new { @id = "last-name", @required = "required", data_parsley_required = "", data_parsley_error_message = @requiredFieldErrorFirstName, autocomplete = "off", data_parsley_pattern = "^[^0-9^(#|*|-|+|/|:|;|,|~|`|=|<|>|\\|?|&|$|@|%|(|))]+$" })
+            @Html.ValidationMessageFor(x => x.LastName, null, new { @class = "error-message" })
+        </div>
+    </div>
+    <div class="row">
+        <div class="small-12 large-6 columns">
+            <label for="email">@LocalizationHelper.GetDictionaryItem("Registration - Profile - Form - Email")<span class="form-item__info"></span></label>
+            @Html.TextBoxFor(x => x.Email, null, new { @type = "email", @id = "email", @required = "required", data_parsley_required = "", data_parsley_type = "email", data_parsley_error_message = @requiredFieldErrorEmail, autocomplete = "off" })
+            @Html.ValidationMessageFor(x => x.Email, null, new { @class = "error-message" })
+        </div>
+        <div class="small-12 large-6 columns">
+            <label for="password">@LocalizationHelper.GetDictionaryItem("Registration - Profile - Form - Password")<span class="form-item__info"></span></label>
+            @Html.TextBoxFor(x => x.Password, null, new { @class = "js-check-password", @id = "password", @type = "password", @required = "required", data_parsley_required_message = @requiredFieldErrorPasswd, data_parsley_minlength = "8", data_parsley_minlength_message = @LocalizationHelper.GetDictionaryItem("Registration - Profile - Adress - Length - Error"), data_parsley_pattern = "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[$@$!%*#?&])[A-Za-z\\d$@$!%*#?&]{8,}$", data_parsley_pattern_message = "", autocomplete = "off" })
+            @Html.ValidationMessageFor(x => x.Password, null, new { @class = "error-message" })
+            <ul class="field-requirements">
+                <li data-requirement="length-rule">@LocalizationHelper.GetDictionaryItem("Registration - Profile - Form - Password - Length")</li>
+                <li data-requirement="uppercase-rule">@LocalizationHelper.GetDictionaryItem("Registration - Profile - Form - Password - UpperCase")</li>
+                <li data-requirement="lowercase-rule">@LocalizationHelper.GetDictionaryItem("Registration - Profile - Form - Password - LowerCase")</li>
+                <li data-requirement="number-rule">@LocalizationHelper.GetDictionaryItem("Registration - Profile - Form - Password - Number")</li>
+                <li data-requirement="special-character-rule">@LocalizationHelper.GetDictionaryItem("Registration - Profile - Form - Password - SpecialCharacter")</li>
+            </ul>
+            
+        </div>
+    </div>
+    <div class="row">
+        <div class="small-12 large-6 columns">
+            <label for="address-1">@LocalizationHelper.GetDictionaryItem("Registration - Profile - Form - Address1")<span class="form-item__info">@LocalizationHelper.GetDictionaryItem("Registration - Profile - Form - ForOfferPurposesOnly - Text")</span></label>
+            @Html.TextBoxFor(x => x.Address1, null, new { @id = "address-1", @placeholder = "", @required = "required", data_parsley_required = "", data_parsley_error_message =@Html.Raw(@requiredFieldErrorAddress) , data_parsley_length= "[0,38]", data_parsley_length_message = @LocalizationHelper.GetDictionaryItem("Registration - Profile - Adress - Length - Error") })
+            @Html.ValidationMessageFor(x => x.Address1, null, new { @class = "error-message" })
+        </div>
+        <div class="small-12 large-6 columns">
+            <label for="address-2">@LocalizationHelper.GetDictionaryItem("Registration - Profile - Form - Address2")<span class="form-item__info"></span></label>
+            @Html.TextBoxFor(x => x.Address2, null, new { @id = "address-2", data_parsley_length= "[0,38]", data_parsley_length_message= @LocalizationHelper.GetDictionaryItem("Registration - Profile - Adress - Length - Error") })
+            @Html.ValidationMessageFor(x => x.Address2, null, new { @class = "error-message" })
+        </div>
+    </div>
+    <div class="row">
+        <div class="small-12 large-6 columns">
+            <label for="city">@LocalizationHelper.GetDictionaryItem("Registration - Profile - Form - City")<span class="form-item__info"></span></label>
+            @Html.TextBoxFor(x => x.City, null, new { @id = "city", @required = "required", data_parsley_required = "", data_parsley_error_message = @requiredFieldErrorCity })
+            @Html.ValidationMessageFor(x => x.City, null, new { @class = "error-message" })
+        </div>
+        <div class="small-12 large-6 columns">
+            <label for="zip-code">@LocalizationHelper.GetDictionaryItem("Registration - Profile - Form - ZipCode")<span class="form-item__info">@LocalizationHelper.GetDictionaryItem("Registration - Profile - Form - ZipCode - soYouReceiveOffers")</span></label>
+            @Html.TextBoxFor(x => x.PostalCode, null, new { @id = "zip-code", @required = "required", data_parsley_required = "", data_parsley_error_message = @requiredFieldErrorPostcod })
+            @Html.ValidationMessageFor(x => x.PostalCode, null, new { @class = "error-message" })
+        </div>
+    </div>
+    <div class="row">
+        <div class="small-12 large-6 columns">
+            <label for="profile-birthdate">@LocalizationHelper.GetDictionaryItem("Registration - Profile - Form - BirthDate")<span class="form-item__info"></span></label>
+            @Html.TextBoxFor(x => x.BirthDate, null, new { @id = "profile-birthdate", @class="js-profile-birthdate", @required = "required", @readonly = "readonly", @placeholder = "dd/mm/yyyy", data_parsley_error_message = @requiredFieldErrorPostcod })
+            <span class="select-date__error-message">@LocalizationHelper.GetDictionaryItem("Profile - Edit - Form - Age - Constraint - Text")</span>
+            @Html.ValidationMessageFor(x => x.BirthDate, null, new { @class = "error-message" })
+
+
+        </div>
+    </div>
+
+
+
+    <div class="checkbox-container">
+        <div class="row">
+            <div class="small-12 large-6 columns">
+                <div class="condition_item">
+                    <input class="form-item" type="checkbox" name="MyProfileQuestion" id="checkbox-already-tried" autocomplete="off"/>
+                    <label for="checkbox-already-tried">@LocalizationHelper.GetDictionaryItem("Registration - Profile - Form - MyProfileQuestion")</label>
+                </div>
+            </div>
+        </div>
+</div>
+
+
+
+
+    <div class="row">
+        <div class="small-12 large-6 columns">
+            <p class="mandatory-info">@LocalizationHelper.GetDictionaryItem("Registration - Profile - Form - MandatoryText")</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="small-12 large-6 columns">
+            <div class="profile__save-btn">
+                <button class="btn btn--block btn--form js-submit-registration-profile" type="button">
+                    <span>@LocalizationHelper.GetDictionaryItem("Registration - Profile - Button- Next")</span>
+                    <i class="icon-spinner icon-rotate-animate"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+}
+
+

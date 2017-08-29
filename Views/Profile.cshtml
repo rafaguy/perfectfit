@@ -1,0 +1,1126 @@
+﻿@using Mars.PerfectFit.Presentation.Web.Helpers
+@using Mars.PerfectFit.Presentation.Web.Constents
+@model Mars.PerfectFit.Presentation.Web.ViewModels.ProfilViewModel
+@{
+    Layout = "DefaultLayout.cshtml";
+    Dictionary<string, string> allbreeds = (Dictionary<string, string>)ViewBag.AllBreeds;
+
+    string january = LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - Month-january");
+    string february = LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - Month-february");
+    string march = LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - Month-March");
+    string april = LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - Month-April");
+    string may = LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - Month-May");
+    string june = LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - Month-June");
+    string july = LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - Month-July");
+    string august = LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - Month-August");
+    string september = LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - Month-September");
+    string october = LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - Month-October");
+    string november = LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - Month-November");
+    string december = LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - Month-December");
+}
+<div class="page-container">
+    <div class="banner">
+        <picture>
+            <source media="(max-width: 1023px)" srcset="@Model.Banner.Path" />
+            <img class="img--responsive" src="@Model.Banner.Path" width="@Model.Banner.Width" height="@Model.Banner.Height" alt="@Model.Banner.Alt" />
+        </picture>
+    </div>
+    <div class="section-container overlapping-section overlapping-section--small">
+        <header class="overlapping-section__header">
+            <h1>@LocalizationHelper.GetDictionaryItem("Edit - Profile - Title")<span class="perfectfit-plus-title perfectfit-plus-title--profile"><img src="@Model.SiteLogo.Path" alt="@Model.SiteLogo.Alt" width="@Model.SiteLogo.Width" height="@Model.SiteLogo.Height"><i class="icon-plus"></i></span></h1>
+            <div class="overlapping-section__introduction">
+                <p class="overlapping-section__paragraph">@LocalizationHelper.GetDictionaryItem("Edit - Profile - Subtitle")</p>
+            </div>
+        </header>
+    </div>
+    <div class="section-container">
+        <div class="rounded-button section__action-button js-switch-profile-panels"><i class="icon-edit"></i></div>
+        <div class="profile">
+            <h2 class="profile__heading">@LocalizationHelper.GetDictionaryItem("Edit - Profile - Title - MyProfile")</h2>
+            <div class="profile__summary">
+                <div class="row">
+                    <div class="small-12 large-6 columns">
+                        <p class="bold">@Model.Registration.FirstName @Model.Registration.LastName</p>
+                    </div>
+                    <div class="small-12 large-6 columns">
+                        <p>@Model.Registration.Email</p>
+                    </div>
+                    <div class="small-12 large-6 columns">
+                        <p>@Model.Registration.Address1</p>
+                    </div>
+
+                    <div class="small-12 large-6 columns">
+
+                        @{if (Model.Registration.MyProfileQuestion.Equals("yes"))
+                            { <p>@LocalizationHelper.GetDictionaryItem("Profile - View - Profile - Tried - PF")</p> }
+
+                            else
+                            {
+                                <p>@LocalizationHelper.GetDictionaryItem("Profile - View - Profile - No - Tried - PF")</p>
+                            }
+
+                             }
+                    </div>
+                    <div class="small-12 large-6 columns">
+                        <p>@Model.Registration.PostalCode @Model.Registration.City</p>
+                    </div>
+                    <div class="small-12 large-6 columns">
+                        <p>@Model.Registration.Address2</p>
+                    </div>
+
+                    <div class="small-12 large-6 columns">
+
+                        <p>@LocalizationHelper.GetDictionaryItem("Profile - View - Profile - Have - Subscribed - Mars - Communication")</p>
+                    </div>
+                </div>
+            </div>
+            <div class="profile__form">
+                <!-- User Information-->
+                @using (Html.BeginUmbracoForm("MemberUpdate", "Registration", null, new Dictionary<string, object> { { "class", "profile-registration-form" } }))
+                {
+
+                    <div class="row">
+                        <div class="small-12 large-6 columns">
+                            <label for="profile-first-name">@LocalizationHelper.GetDictionaryItem("Edit - Profile - Tagline - First - Name")<span class="form-item__info"></span></label>
+                            <input type="text" value="@Model.Registration.FirstName" name="FirstName" id="profile-first-name" required="required" data-parsley-required="" data-parsley-required-message="@LocalizationHelper.GetDictionaryItem("Forms - Validation - Required - FirstName")" autocomplete="off"  data-parsley-pattern="^[^0-9^(#|*|-|+|/|:|;|,|~|`|=|<|>|\\|?|&|$|@@|%|(|))]+$"/>
+                        </div>
+                        <div class="small-12 large-6 columns">
+                            <label for="profile-last-name">@LocalizationHelper.GetDictionaryItem("Edit - Profile - Tagline - Last - Name")<span class="form-item__info"></span></label>
+                            <input value="@Model.Registration.LastName" type="text" name="LastName" id="profile-last-name" required="required" data-parsley-required="" data-parsley-required-message="@LocalizationHelper.GetDictionaryItem("Forms - Validation - Required - FirstName")" autocomplete="off" data-parsley-pattern="^[^0-9^(#|*|-|+|/|:|;|,|~|`|=|<|>|\\|?|&|$|@@|%|(|))]+$"/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="small-12 large-6 columns">
+                            <label for="profile-email">@LocalizationHelper.GetDictionaryItem("Edit - Profile - Tagline - Email")<span class="form-item__info"></span></label>
+                            <input value="@Model.Registration.Email" type="email" name="Email" id="profile-email" required="required" data-parsley-required="" data-parsley-type="email" data-parsley-error-message="@LocalizationHelper.GetDictionaryItem("Forms - Validation - Required - Email")" readonly/>
+                        </div>
+                        <div class="small-12 large-6 columns">
+                            <p class="reset-password">@LocalizationHelper.GetDictionaryItem("Edit - Profile - Reset - Password - Text") <a class="link js-forgot-password" href="#">@LocalizationHelper.GetDictionaryItem("Edit - Profile - Reset - Password - Link")</a></p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="small-12 large-6 columns">
+                            <label for="profile-address-1">@LocalizationHelper.GetDictionaryItem("Edit - Profile - Tagline - Addresse")<span class="form-item__info">@LocalizationHelper.GetDictionaryItem("Registration - Profile - Form - ForOfferPurposesOnly - Text")</span></label>
+                            <input value="@Model.Registration.Address1" type="text" name="Address1" id="profile-address-1" placeholder="" required="required" data-parsley-required="" data-parsley-error-message="@LocalizationHelper.GetDictionaryItem("Forms - Validation - Required - Address")" data-parsley-length="[0,38]" autocomplete="off"/>
+                        </div>
+                        <div class="small-12 large-6 columns">
+                            <label for="profile-address-2">@LocalizationHelper.GetDictionaryItem("Edit - Profile - Tagline - Addresse2")<span class="form-item__info"></span></label>
+                            <input value="@Model.Registration.Address2" type="text" name="Address2" id="profile-address-2" data-parsley-length="[0,38]" data-parsley-length-message="38 characters maximum" autocomplete="off"/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="small-12 large-6 columns">
+                            <label for="profile-city">@LocalizationHelper.GetDictionaryItem("Edit - Profile - Tagline - City")<span class="form-item__info"></span></label>
+                            <input value="@Model.Registration.City" type="text" name="City" id="profile-city" required="required" data-parsley-required="" data-parsley-error-message="@LocalizationHelper.GetDictionaryItem("Forms - Validation - Required - City")" autocomplete="off"/>
+                        </div>
+                        <div class="small-12 large-6 columns">
+                            <label for="profile-zip-code">@LocalizationHelper.GetDictionaryItem("Edit - Profile - ZipCode")<span class="form-item__info">@LocalizationHelper.GetDictionaryItem("Edit - Profile - ZipCode - Additional - Information")</span></label>
+                            <input value="@Model.Registration.PostalCode" type="text" name="PostalCode" id="profile-zip-code" required="required" data-parsley-required="" data-parsley-error-message="@LocalizationHelper.GetDictionaryItem("Edit - Profile - ZipCode - Required - Error")" autocomplete="off"/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="small-12 large-6 columns">
+                            <label for="profile-birthdate">@LocalizationHelper.GetDictionaryItem("Edit - Profile - Tagline - BirthDate")<span class="form-item__info"></span></label>
+                            <input value="@Model.Registration.BirthDate" class="js-profile-birthdate" type="text" name="BirthDate" id="profile-birthdate" required="required" readonly="readonly" /><span class="select-date__error-message">@LocalizationHelper.GetDictionaryItem("Profile - Edit - Form - Age - Constraint - Text")</span>
+                        </div>
+                    </div>
+                    /*DE integration check box*/
+                    <div class="checkbox-container">
+                        <div class="row">
+                            <div class="small-12 large-12 columns">
+                                @{
+                                    var profileQuestion = Model.Registration.MyProfileQuestion.Equals("yes") ? "Checked" : "";
+
+                                }
+
+
+                                <div class="condition_item">
+                                    <input class="form-item" type="checkbox" name="MyProfileQuestion" id="checkbox-already-tried" @profileQuestion autocomplete="off" />
+                                    <label for="checkbox-already-tried">@LocalizationHelper.GetDictionaryItem("Registration - Profile - Form - MyProfileQuestion")</label>
+                                </div>
+                            </div>
+                            <div class="small-12 large-12 columns">
+                                @{
+                                    var MarsQuestion = Model.Registration.UpdateMarsQuestion.Equals("yes") ? "Checked" : "";
+
+                                }
+
+
+                                <div class="condition_item">
+                                    <input class="form-item" type="checkbox" name="UpdateMarsQuestion" id="checkbox-opt-in-mars" @MarsQuestion />
+                                    <label for="checkbox-opt-in-mars">@LocalizationHelper.GetDictionaryItem("Registration - Pet - hear - From - PerfectFit")</label>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="small-12 large-6 columns">
+                            <p class="mandatory-info">@LocalizationHelper.GetDictionaryItem("Edit - Profile - Mandatory - Text")</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="small-12 columns">
+                            <p class="legal-mentions">@LocalizationHelper.GetDictionaryItem("Edit - Profile - Legal- Text")</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="small-12 large-6 columns">
+                            <div class="profile__save-btn">
+                                <button class="btn btn--block btn--form js-submit-registration-profile" type="submit">
+                                    <span>@LocalizationHelper.GetDictionaryItem("Edit - Profile - Form - Button - Text")</span>
+                                    <i class="icon-spinner icon-rotate-animate"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                }@* end of edit profile loop*@
+
+                <div class="row">
+                    <div class="small-12 columns">
+                        <p class="deactivate-account">@LocalizationHelper.GetDictionaryItem("Edit - Profile - Deactive - Account - Text") <a class="link js-deactivate-account__link" href="/umbraco/Surface/RegistrationPets/DeactivateAccount">@LocalizationHelper.GetDictionaryItem("Edit - Profile - Deactive - Account - Link")</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section-container section-container--spaced">
+        <div class="profile">
+            <h2 class="profile__heading">@LocalizationHelper.GetDictionaryItem("Registration - Pet - MyPets - header")</h2>
+            <div class="profile__icon"><i class="icon-select-arrow icon-medium"></i></div>
+        </div>
+    </div>
+
+
+    @{int count = 0; }
+
+    @if (Model.Pets != null)
+    {
+        foreach (var pet in Model.Pets)
+        {
+
+    <!-- Begin of looping profile-->
+            <div class="section-container section-container--spaced pet-profile" data-profile-index="@count">
+                <div class="rounded-button section__action-button js-switch-profile-panels"><i class="icon-edit"></i></div>
+                <div class="profile">
+                    <!-- Bloc a afficher si le pet a une photo-->
+                    <div class="profile__picture">
+                        @if (!string.IsNullOrEmpty(pet.petPhotos) && string.Compare(pet.petPhotos, "0") != 0)
+                        {
+                            <img class="img--responsive" src="@Html.GetMediaItem(pet.petPhotos)" width="1280" height="696" alt="Pet picture" />
+                        }
+                        else
+                        {
+                <!-- Bloc a afficher si le pet n'a pas de photo et si le pet est un chien-->
+                            if (pet.petType == "1")// if pet is dog
+                            {
+                                <div class="pet-type__thumbnail pet-type__thumbnail--dog pet-type__placeholder" data-category="dog"></div>
+                            }
+                            else
+                            {//if pet is cat
+                                <div class="pet-type__thumbnail pet-type__thumbnail--cat pet-type__placeholder" data-category="cat"></div>
+                            }
+                        }
+                    </div>
+                    <div class="profile__summary">
+                        <div class="row">
+                            @*Name*@
+                            <div class="small-12 large-6 columns">
+                                <p class="bold">
+                              @pet.petName
+                                </p>
+                            </div>
+                            @*gender*@
+                            <div class="small-12 large-6 columns">
+
+                              @if (pet.petGender.Equals("Male"))
+                              {
+                                <p>
+                                    @LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - Gender - Male")
+                                </p>
+                              }
+                              else
+                              {
+                                <p>
+                                    @LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - Gender - Female")
+                                </p>
+                              }
+
+                            </div>
+                            @*Age----------*@
+                            @{
+                                int months = SiteParameters.getDiffDateToMonth(DateTime.Parse(pet.petBirthDate));
+                                int ages = 0;
+                                string textAge = "";
+                                if (months > 12)
+                                {
+                                    ages = months / 12;
+                                    textAge = @LocalizationHelper.GetDictionaryItem("Profile - Years - Old");
+                                }
+                                else
+                                {
+                                    ages = months;
+                                    textAge = @LocalizationHelper.GetDictionaryItem("Profile - Months - Old");
+                                }
+                                // int age = (new DateTime(DateTime.Now.Subtract(DateTime.Parse(pet.petBirthDate)).Ticks).Year - 1);
+
+                            }
+                            <div class="small-12 large-6 columns">
+                                <p>@ages @textAge</p>
+                            </div>
+
+                                <div class="small-12 large-6 columns">
+                                    @if (pet.petType.Equals("1"))
+                                    {
+                                        if (pet.petGender == "Female")
+                                        {
+                                            if (pet.isPetSterilized.Equals("Yes"))
+                                            {
+                                                <p>@LocalizationHelper.GetDictionaryItem("Profile - Is - She - Sterilized - Dog") </p>
+                                            }
+                                            else
+                                            {
+                                                <p>@LocalizationHelper.GetDictionaryItem("Profile - Is - She - Sterilized - Dog -No") </p>
+                                            }
+
+                                        }
+                                        else
+                                        {
+                                            if (pet.isPetSterilized.Equals("Yes"))
+                                            {
+                                                <p>@LocalizationHelper.GetDictionaryItem("Profile - is - He - Sterilized - Dog")</p>
+                                            }
+                                            else
+                                            {
+                                                <p>@LocalizationHelper.GetDictionaryItem("Profile - is - He - Sterilized - Dog - No")</p>
+                                            }
+
+
+                                        }
+                                    }
+                                    else
+                                    {
+                                        if (pet.petGender == "Female")
+                                        {
+                                            if (pet.isPetSterilized.Equals("Yes"))
+                                            {
+                                                <p>@LocalizationHelper.GetDictionaryItem("Profile - Is - She - Sterilized - Cat") </p>
+                                            }
+                                            else
+                                            {
+                                                <p>@LocalizationHelper.GetDictionaryItem("Profile - Is - She - Sterilized - Cat - No") </p>
+                                            }
+
+
+                                        }
+                                        else
+                                        {
+                                            if (pet.isPetSterilized.Equals("Yes"))
+                                            {
+                                                <p>@LocalizationHelper.GetDictionaryItem("Profile - Is - He - Sterilized - Cat")</p>
+                                            }
+                                            else
+                                            {
+                                                <p>@LocalizationHelper.GetDictionaryItem("Profile - Is - He - Sterilized - Cat -No")</p>
+                                            }
+
+                                        }
+                                    }
+
+                                </div>
+
+
+                            @if (pet.petCoat != 0) {
+                                <div class="small-12 large-6 columns">
+                                     @{ if (pet.petCoat == 1)
+                                         {   <p>@LocalizationHelper.GetDictionaryItem("Profile - petCoat - Long")</p>}}
+                                    @{ if (pet.petCoat == 2)
+                                        {   <p>@LocalizationHelper.GetDictionaryItem("Profile - petCoat - Medium")</p>}}
+                                    @{ if (pet.petCoat == 3)
+                                        {   <p>@LocalizationHelper.GetDictionaryItem("Profile - petCoat - Short")</p>}}
+                                </div>
+                                        }
+                            <div class="small-12 large-6 columns">
+                                @*Begin Pet Spend Time*@
+                                @if (pet.petGender.Equals("Female"))
+                                {
+                                    if (string.Compare(pet.petSpendTime, "1") == 0)
+                                    {   <p> @LocalizationHelper.GetDictionaryItem("Profile - Pet - SpendTime - Outdoors - Female")</p>
+                                    }
+                                    else if (string.Compare(pet.petSpendTime, "3") == 0)
+                                    {
+                                        <p>@LocalizationHelper.GetDictionaryItem("Profile - Pet - SpendTime - Indoors - Female")</p>
+                                    }
+                                    else if (string.Compare(pet.petSpendTime, "2") == 0)
+                                    {
+                                        <p>@LocalizationHelper.GetDictionaryItem("Profile - Pet - SpendTime - Both - Female")</p>
+                                    }
+                                }
+
+                                else
+
+                                     if (string.Compare(pet.petSpendTime, "1") == 0)
+                                {   <p> @LocalizationHelper.GetDictionaryItem("Profile - Pet - SpendTime - Outdoors - Male")</p>
+                                }
+                                else if (string.Compare(pet.petSpendTime, "3") == 0)
+                                {
+                                    <p>@LocalizationHelper.GetDictionaryItem("Profile - Pet - SpendTime - Indoors - Male")</p>
+                                }
+                                else if (string.Compare(pet.petSpendTime, "2") == 0)
+                                {
+                                    <p>@LocalizationHelper.GetDictionaryItem("Profile - Pet - SpendTime - Both - Male")</p>
+                                }
+
+                                @*End Pet Spend Time*@
+                            </div>
+
+                            @if (pet.isProductTriedBefore == "Yes")
+                            {
+                            <div class="small-12 large-6 columns">
+                                @*TODO*@
+                                @if (pet.petType.Equals("2"))
+                                {
+                                    if (pet.petGender.Equals("Female"))
+                                    {
+                                        <p>@LocalizationHelper.GetDictionaryItem("Page - Profile - Pet - Tried - light - Before - Yes - Female")</p>
+                                    }
+                                    else
+                                    {
+                                        <p>@LocalizationHelper.GetDictionaryItem("Page - Profile - Pet - Tried - light - Before - Yes")</p>
+                                    }
+                                }
+                                else
+                                {
+                                    if (pet.petGender.Equals("Female"))
+                                    {
+                                        <p>@LocalizationHelper.GetDictionaryItem("Page - Profile - Pet - Dog - Tried - light - Before - Yes - Female")</p>
+                                    }
+                                    else
+                                    {
+                                        <p>@LocalizationHelper.GetDictionaryItem("Page - Profile - Pet - Dog - Tried - light - Before - Yes")</p>
+                                    }
+                                }
+
+
+                            </div>
+                            }
+                            else if(pet.isProductTriedBefore == "No")
+                            {
+                                <div class="small-12 large-6 columns">
+                                    @*TODO*@
+                                    @if (pet.petType.Equals("2"))
+                                    {
+                                        if (pet.petGender.Equals("Female"))
+                                        {
+                                            <p>@LocalizationHelper.GetDictionaryItem("Page - Profile - Pet - Tried - light - Before - No - Female")</p>
+                                        }
+                                        else
+                                        {
+                                            <p>@LocalizationHelper.GetDictionaryItem("Page - Profile - Pet - Tried - light - Before - No")</p>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        if (pet.petGender.Equals("Female"))
+                                        {
+                                            <p>@LocalizationHelper.GetDictionaryItem("Page - Profile - Pet - Dog - Tried - light - Before - No - Female")</p>
+                                        }
+                                        else
+                                        {
+                                            <p>@LocalizationHelper.GetDictionaryItem("Page - Profile - Pet - Dog - Tried - light - Before - No")</p>
+                                        }
+                                    }
+
+                                </div>
+                            }
+
+                            @if (allbreeds.ContainsKey(""+pet.PetBreedId))
+                            {
+                                <div class="small-12 large-6 columns">
+                                    <p>@allbreeds[""+pet.PetBreedId]</p>
+                                   </div>
+                            }
+
+                            @if (pet.petWeigh != 0) {
+                            if (pet.petWeigh == 17)
+                            {
+                                <div class="small-12 large-6 columns">
+
+                                        @if (pet.petGender.Equals("Male"))
+                                        {
+                                            <p>
+                                                @LocalizationHelper.GetDictionaryItem("Profile - Pet - Weight - Dog") 0 - 5 kg
+                                            </p>
+                                        }
+                                        else
+                                        {
+                                            <p>
+                                                @LocalizationHelper.GetDictionaryItem("Profile - Pet - Weight - Dog - She") 0 - 5 kg
+                                            </p>
+                                        }
+
+
+                                </div>
+                            }
+                            else if (pet.petWeigh == 18)
+                            {
+                                <div class="small-12 large-6 columns">
+                                    @if (pet.petGender.Equals("Male"))
+                                    {
+                                        <p>@LocalizationHelper.GetDictionaryItem("Profile - Pet - Weight - Dog") 6-10 kg</p>
+                                    }
+                                    else
+                                    {
+                                        <p>@LocalizationHelper.GetDictionaryItem("Profile - Pet - Weight - Dog - She") 6-10 kg</p>
+                                    }
+
+                                </div>
+                            }
+                            else if (pet.petWeigh == 19)
+                            {
+                                <div class="small-12 large-6 columns">
+                                    @if (pet.petGender.Equals("Male"))
+                                    {
+                                        <p>@LocalizationHelper.GetDictionaryItem("Profile - Pet - Weight - Dog") 11-15 kg</p>
+                                    }
+                                    else
+                                    {
+                                        <p>@LocalizationHelper.GetDictionaryItem("Profile - Pet - Weight - Dog - She") 11-15 kg</p>
+                                    }
+
+                                </div>
+                            }
+                            else if (pet.petWeigh == 20)
+                            {
+                                <div class="small-12 large-6 columns">
+                                    <p>@LocalizationHelper.GetDictionaryItem("Profile - Pet - Weight - Dog") 16-25 kg</p>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="small-12 large-6 columns">
+                                    @if (pet.petGender.Equals("Male"))
+                                    {
+                                        <p>@LocalizationHelper.GetDictionaryItem("Profile - Pet - Weight - Dog") +25kg</p>
+                                    }
+                                    else
+                                    {
+                                        <p>@LocalizationHelper.GetDictionaryItem("Profile - Pet - Weight - Dog - She") +25kg</p>
+                                    }
+
+                                </div>
+                            }
+                            }
+
+                            @if (pet.petActive != 0)
+                            {
+                                if (pet.petActive == 2)
+                                {
+                                    <div class="small-12 large-6 columns">
+                                        <p>@LocalizationHelper.GetDictionaryItem("Registration - Pet - Dog - Active - Regularly") </p>
+                                    </div>
+                                }
+                                else if (pet.petActive == 3)
+                                {
+                                    <div class="small-12 large-6 columns">
+                                        <p>@LocalizationHelper.GetDictionaryItem("Registration - Pet - Dog - Active - Very")</p>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="small-12 large-6 columns">
+                                        <p>@LocalizationHelper.GetDictionaryItem("Registration - Pet - Dog - Active - Hardly") </p>
+                                    </div>
+                                }
+
+                            }
+
+                            @if (pet.petAloneSitter != 0)
+                            {
+                                if (pet.petAloneSitter == 2)
+                                {
+                                    <div class="small-12 large-6 columns">
+                                        <p> @if (pet.petGender.Equals("Male")) { @LocalizationHelper.GetDictionaryItem("Profile - SpendTime - weekends - He")}
+                                        else {@LocalizationHelper.GetDictionaryItem("Profile - SpendTime - weekends - She") }
+
+                                          </p>
+                                    </div>
+                                            }
+                                            else if (pet.petAloneSitter == 3)
+                                            {
+                                    <div class="small-12 large-6 columns">
+                                        <p>
+                                            @if (pet.petGender.Equals("Male"))
+                                            { @LocalizationHelper.GetDictionaryItem("Profile - SpendTime - holidays - He")}
+                                            else
+                                            {@LocalizationHelper.GetDictionaryItem("Profile - SpendTime - holidays - She") }
+
+                                        </p>
+                                    </div>
+                                }
+                                else if (pet.petAloneSitter == 4)
+                                {
+                                    <div class="small-12 large-6 columns">
+                                        <p>
+                                            @if (pet.petGender.Equals("Male"))
+                                            { @LocalizationHelper.GetDictionaryItem("Profile - SpendTime - Never - He")}
+                                            else
+                                            {@LocalizationHelper.GetDictionaryItem("Profile - SpendTime - Never - She") }
+                                        </p>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="small-12 large-6 columns">
+                                        <p>
+                                            @if (pet.petGender.Equals("Male"))
+                                            { @LocalizationHelper.GetDictionaryItem("Profile - SpendTime - workDays - He")}
+                                            else
+                                            {@LocalizationHelper.GetDictionaryItem("Profile - SpendTime - workDays - She") }
+                                          </p>
+
+                                    </div>
+                                }
+
+                            }
+                                </div>
+                    </div>
+                    <div class="profile__form">
+                        <div class="registration-pet">
+                            <!--begin looping-->
+
+                            <form class="pet-registration-form" id="register-pet-form-index-@count" action="/umbraco/Surface/RegistrationPets/UpdatePetProfile" data-pet-id="@pet.petId" data-new-pet-url="/umbraco/Surface/RegistrationPets/AddPetProfile" method="post" enctype="multipart/form-data">
+                                <p class="label label--pet-choice">@Html.Raw(@LocalizationHelper.GetDictionaryItem("Edit - Profile - Pet - Questionary - catOrDog")) </p>
+                                <div class="pet-types__container">
+                                    <label class="pet-type__thumbnail pet-type__thumbnail--cat" for="registration-pet-tab-cat-@count" data-category="cat"></label>
+                                    <label class="pet-type__thumbnail pet-type__thumbnail--dog" for="registration-pet-tab-dog-@count" data-category="dog"></label>
+                                </div>
+                                <div class="pet-type__captions"><span class="pet-type__caption">@LocalizationHelper.GetDictionaryItem("Registration - Pet - Cat - choice")</span><span class="pet-type__caption">@LocalizationHelper.GetDictionaryItem("Registration - Pet - Dog - choice")</span></div>
+                                @{var isCheckedCat = ""; var isCheckedDog = "";}
+                                @{if (pet.petType == "2") { isCheckedCat = "checked"; } else { isCheckedDog = "checked"; } }
+                                <input class="visibility--hidden" id="registration-pet-tab-cat-@count" @isCheckedCat type="radio" name="petType" value="cat" />
+                                <input class="visibility--hidden" id="registration-pet-tab-dog-@count" @isCheckedDog type="radio" name="petType" value="dog" />
+                                <!-- If pet is cat -->
+
+                                <div id="registration-pet-tab-content-cat-@count">
+                                    <div class="pet-type__thumbnail pet-type__thumbnail--cat pet-type__placeholder" data-category="cat">
+
+                                        <input class="js-camera-pet" id="cat-picture-click-index-@count" type="file" accept="image/jpeg, image/png, image/x-png, image/gif" name="catpetPhotoUrl" />
+                                        <label class="pet-type__icon" for="cat-picture-click-index-@count"><span class="rounded-button rounded-button--bordered"><i class="icon-camera icon-medium"></i></span></label><span class="rounded-button rounded-button--bordered pet-type__icon pet-type__icon--delete-picture js-pet-profile-remove-pic"><i class="icon-trash"></i></span>
+                                    </div><span class="pet-type__max-size-msg">@LocalizationHelper.GetDictionaryItem("Registration - Pet - Picture - size - Text")</span>
+                                    <div class="pet-form-group">
+                                        <div class="row">
+                                            <div class="small-12 large-6 columns">
+                                                <label for="cat-name-index-@count">@LocalizationHelper.GetDictionaryItem("Edit - Profile - Form - Pet - Name")<span class="form-item__info"></span></label>
+                                                <input value="@pet.petName" type="text" name="catpetName" id="cat-name-index-@count" required="required" data-parsley-required="data-parsley-required" data-parsley-error-message="@LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - Name - Error")" data-parsley-group="cat-form" autocomplete="off" data-parsley-pattern= "^[^0-9^(#|*|-|+|/|:|;|,|~|`|=|<|>|\\|?|&|$|@@|%|(|))]+$"/>
+                                            </div>
+                                            <div class="small-12 large-6 columns">
+                                                <div class="radio-button-container">
+                                                    <p class="label">@LocalizationHelper.GetDictionaryItem("Edit - Profile Radio - Pet - Gender")</p>
+                                                    @{
+                                                        var malChecked = pet.petGender.Equals("Male") ? "Checked" : "";
+                                                        var femaleChecked = pet.petGender.Equals("Female") ? "Checked" : "";
+                                                    }
+
+                                                    <input class="form-item" value="2" type="radio" name="catpetGender" id="cat-gender-male-index-@count" data-parsley-required="data-parsley-required" data-parsley-error-message="@LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - Gender - Error")" data-parsley-group="cat-form" @malChecked />
+                                                    <label for="cat-gender-male-index-@count">@LocalizationHelper.GetDictionaryItem("Edit - Profile - Form - Gender - Male")</label>
+                                                    <input class="form-item" value="1" type="radio" name="catpetGender" id="cat-gender-female-index-@count" data-parsley-required="data-parsley-required" data-parsley-error-message="@LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - Gender - Error")" data-parsley-group="cat-form" @femaleChecked autocomplete="off"/>
+                                                    <label for="cat-gender-female-index-@count">@LocalizationHelper.GetDictionaryItem("Edit - Profile - Form - Gender -Female")</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="select-date">
+                                                <div class="small-12 large-6 columns">
+                                                    <p class="label">@LocalizationHelper.GetDictionaryItem("Edit - Profile - Form- Pet- Age")</p>
+                                                    <div class="slider__wrapper">
+                                                        <div class="slider" data-slider="data-slider" data-initial-start="@pet.petAgeIndex" data-start="0" data-end="19" data-step="1" aria-controls="cat-age-ladder-index-@count">
+                                                            <span class="slider__dots" data-dots="2"><span class="slider__dot"><i class="icon-dot"></i></span><span class="slider__dot"><i class="icon-dot"></i></span></span><span class="slider-handle active" data-slider-handle="data-slider-handle" role="slider" aria-controls="cat-age-ladder-index-@count" aria-valuenow="0" aria-valuemin="0" aria-valuemax="19">
+                                                                <input id="cat-age-ladder-index-@count" type="hidden" name="catpetLadderAge" /><span class="slider__tooltip">-6m</span>
+                                                            </span><span class="slider-fill" data-slider-fill="data-slider-fill"></span>
+                                                                <ul class="slider__captions" data-captions="2">
+	                                                                <li class="slider__caption"><span>-6m</span></li>
+	                                                                 <li class="slider__caption"><span>14+</span></li>
+                                                                </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="small-12 large-6 columns">
+                                                    <p class="label">@LocalizationHelper.GetDictionaryItem("Edit - Profile - Pet - BirthDate")</p>
+                                                    <div class="select-date__wrapper" data-category="cat">
+                                                        <select class="js-date-day" id="day-cat-age-list-index-@count" aria-label="Day" name="catpetBirthDay">
+                                                            @{
+                                                                string selected = "";
+
+                                                                for (int i = 1; i < 32; i++)
+                                                                {
+
+                                                                    if (pet.petBirthDay == i)
+                                                                    {
+                                                                        selected = "selected=" + "selected";
+                                                                        <option value="@i" @selected>@i</option>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <option value="@i">@i</option>
+                                                                    }
+
+
+                                                                }
+                                                            }
+
+                                                        </select>
+                                                        <select class="js-date-month" id="month-cat-age-list-index-@count" aria-label="Month" name="catpetBirthMonth">
+                                                            @{
+                                                                string[] month = new string[] { january, february, march, april, may, june, july, august, september, october, november, december };
+
+                                                                <option>@LocalizationHelper.GetDictionaryItem("Edit - Profile - Form - Pet - Birthmonth") </option>
+                                                                string selectedMonthCat = "";
+                                                                for (int i = 0; i < 12; i++)
+                                                                {
+                                                                    if (pet.petBirthMonth == i + 1)
+                                                                    {
+                                                                        selectedMonthCat = "selected=" + "selected";
+                                                                        <option value="@i" @selectedMonthCat>@month[i]</option>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <option value="@i">@month[i]</option>
+                                                                    }
+
+
+                                                                }
+
+                                                            }
+                                                        </select>
+                                                        <select class="js-date-year" id="year-cat-age-list-index-@count" aria-label="Year" name="catpetBirthYear">
+                                                            @{
+                                                                int[] years = new int[] { 2017, 2016, 2015, 2014, 2013, 2012, 2011, 2010, 2009, 2008, 2007, 2006, 2005, 2004, 2003, 2002, 2001, 2000, 1999, 1998, 1997, 1996, 1995 };
+
+                                                                <option>@LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - Year")</option>
+
+                                                                string selectedYearCat = "";
+                                                                for (int i = 2017; i > 1994; i--)
+                                                                {
+                                                                    if (pet.petBirthYear == i)
+                                                                    {
+                                                                        selectedYearCat = "selected=" + "selected";
+                                                                        <option value="@i" @selectedYearCat>@i</option>
+                                                                    } else
+                                                                    {
+                                                                        <option value="@i">@i</option>
+                                                                    }
+                                                                }
+
+                                                            }
+                                                        </select>
+                                                    </div><span class="select-date__error-message">@LocalizationHelper.GetDictionaryItem("Page - Profile - Enter - valideDate - Question")</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="small-12 column">
+                                                <div class="breed" data-url="/umbraco/Surface/RegistrationPets/GetBreeds" data-category="cat" id="cat-picture-index-@count">
+                                                    <div class="row expanded">
+                                                        <div class="small-12 large-6 columns">
+                                                            <label for="cat-breed-index-@count">@LocalizationHelper.GetDictionaryItem("Edit - Profile - Form - Pet - Breed")<span class="form-item__info"></span></label>
+                                                            <input class="breed__search" type="text" name="catpetBreed" id="cat-breed-index-@count" />
+                                                            <input class="breed__value" type="hidden" name="catpetBreedId" id="cat-breed-hidden-index-@count" value="@pet.PetBreedId" />
+                                                        </div>
+                                                        <div class="small-12 large-12 columns">
+                                                            <div class="breed__carousel"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="small-12 large-6 columns">
+                                                <div class="form-item">
+
+                                                    <label for="cat-spend-time-index-@count">@LocalizationHelper.GetDictionaryItem("Edit - Profile - Form - Pet - SpendTime - Default - Text")</label>
+                                                    <select id="cat-spend-time-index-@count" name="catpetSpendTime" data-question="@LocalizationHelper.GetDictionaryItem("Edit - Profile - Form - Pet - SpendTime - Default - Text")" data-question-male="@LocalizationHelper.GetDictionaryItem("Edit - Profile - Form - Pet - SpendTime - Male")"  data-question-female="@LocalizationHelper.GetDictionaryItem("Edit - Profile - Form - Pet - SpendTime - Female")">
+                                                        @{ var spendTime = ""; }
+                                                        <option value="0" selected="selected">@LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - Select - Text")</option>
+                                                        <option value="3" @{ if (string.Compare(pet.petSpendTime, "3") == 0) { spendTime = "selected"; } else { spendTime = ""; } } @spendTime>@LocalizationHelper.GetDictionaryItem("Edit - Profile - Form - Pet - SpendTime - Indoors")</option>
+                                                        <option value="1" @{ if (string.Compare(pet.petSpendTime, "1") == 0) { spendTime = "selected"; } else { spendTime = ""; } } @spendTime>@LocalizationHelper.GetDictionaryItem("Edite - Profile - Form - Pet - SpendTime - Outdoors")</option>
+                                                        <option value="2" @{ if (string.Compare(pet.petSpendTime, "2") == 0) { spendTime = "selected"; } else { spendTime = ""; } } @spendTime>@LocalizationHelper.GetDictionaryItem("Edit - Profile - Form - Pet - SpendTime - Both")</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="small-12 large-6 columns">
+                                                <div class="radio-button-container">
+
+                                                    <p class="label" data-question="@LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - IsSterillized - Default")" data-question-male="@LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - IsSterillized")" data-question-female="@LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - IsSterillized - Female")">@LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - IsSterillized")</p><!--???-->
+                                                    @{
+                                                        var sterillizedYesChecked = pet.isPetSterilized.Equals("Yes") ? "Checked" : "";
+                                                        var sterillizedNoChecked = pet.isPetSterilized.Equals("No") ? "Checked" : "";
+                                                    }
+                                                    <input class="form-item" value="Yes" type="radio" name="catisPetSterilized" id="cat-checkbox-sterilized-yes-index-@count" data-parsley-required="data-parsley-required" data-parsley-error-message="@LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - isSterilized - dog - Error")" data-parsley-group="cat-form" @sterillizedYesChecked />
+                                                    <label for="cat-checkbox-sterilized-yes-index-@count">@LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - Sterillized - choice - Yes")</label>
+                                                    <input class="form-item" value="No" type="radio" name="catisPetSterilized" id="cat-checkbox-sterilized-no-index-@count" data-parsley-required="data-parsley-required" data-parsley-error-message="@LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - isSterilized - dog - Error")" data-parsley-group="cat-form" @sterillizedNoChecked />
+                                                    <label for="cat-checkbox-sterilized-no-index-@count">@LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - Sterillized - choice - No")</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="small-12 large-6 columns">
+                                                <p class="label">@LocalizationHelper.GetDictionaryItem("Edit - Profile - Form - Coat - Text")</p>
+                                                <div class="slider__wrapper">
+                                                    @{
+                                                        var coatActive = "";
+                                                        if (pet.petCoat > 0) { coatActive = "active"; }
+                                                    }
+                                                    <div class="slider" data-slider="data-slider" data-initial-start="@pet.petCoat" data-start="1" data-end="3" data-step="1" aria-controls="cat-coat-index-@count">
+                                                        <span class="slider__dots" data-dots="3"><span class="slider__dot"><i class="icon-dot"></i></span><span class="slider__dot"><i class="icon-dot"></i></span><span class="slider__dot"><i class="icon-dot"></i></span></span>
+                                                        <span class="slider-handle @coatActive" data-slider-handle="data-slider-handle" role="slider" aria-controls="cat-coat-index-@count" aria-valuenow="0" aria-valuemin="1" aria-valuemax="3">
+                                                            <input id="cat-coat-index-@count" type="hidden" name="catpetCoat" />
+                                                        </span><span class="slider-fill" data-slider-fill="data-slider-fill"></span>
+                                                        <!--<span class="slider__captions" data-captions="3"><span class="slider__caption">@LocalizationHelper.GetDictionaryItem("Edit - Profile - Form - Coat - Long")</span><span class="slider__caption">@LocalizationHelper.GetDictionaryItem("Edit - Profile - Form - Coat - Medium")</span><span class="slider__caption">@LocalizationHelper.GetDictionaryItem("Edit - Profile - Form - Coat - Short")</span></span>-->
+                                <ul class="slider__captions" data-captions="3">
+                                  <li class="slider__caption"><span>@LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - Coat - Long")</span></li>
+                                  <li class="slider__caption"><span>@LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - Coat - Medium")</span></li>
+                                  <li class="slider__caption"><span>@LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - Coat - Short")</span></li>
+                                </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="small-12 large-6 columns">
+                                                <p class="label" data-question="@LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - cat - often - Home")" data-question-male="@LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - cat - often - Home - Male")" data-question-female="@LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - cat - often - Home - Female")">@LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - cat - often - Home")</p>
+                                                <div class="slider__wrapper">
+                                                    @{
+                                                        var aloneSitterActive = "";
+                                                        if (pet.petAloneSitter > 0) { aloneSitterActive = "active"; }
+                                                    }
+                                                    <div class="slider" data-slider="data-slider" data-initial-start="@pet.petAloneSitter" data-start="1" data-end="4" data-step="1" aria-controls="cat-alone-sitter-index-@count">
+                                                        <span class="slider__dots" data-dots="4"><span class="slider__dot"><i class="icon-dot"></i></span><span class="slider__dot"><i class="icon-dot"></i></span><span class="slider__dot"><i class="icon-dot"></i></span><span class="slider__dot"><i class="icon-dot"></i></span></span>
+                                                        <span class="slider-handle @aloneSitterActive" data-slider-handle="data-slider-handle" role="slider" aria-controls="cat-alone-sitter-index-@count" aria-valuenow="0" aria-valuemin="0" aria-valuemax="3">
+                                                            <input id="cat-alone-sitter-index-@count" type="hidden" name="catpetAloneSitter" />
+                                                        </span><span class="slider-fill" data-slider-fill="data-slider-fill"></span>
+                                                        <!--<span class="slider__captions" data-captions="4">
+                                                            <span class="slider__caption">@LocalizationHelper.GetDictionaryItem("Edit - Profile - Pet - Alone - OnWorkdays")</span>
+                                                            <span class="slider__caption">On weekends</span>
+                                                            <span class="slider__caption">On occasionally</span>
+                                                            <span class="slider__caption">@LocalizationHelper.GetDictionaryItem("Edit - Profile - Pet - Slider - Alone - Never")</span>
+                                                        </span>-->
+                                <ul class="slider__captions" data-captions="4">
+                                  <li class="slider__caption"><span>@LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - cat - often - Home - workdays")  </span></li>
+                                  <li class="slider__caption"><span>@LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - cat - often - Home - weekends")  </span></li>
+                                  <li class="slider__caption"><span>@LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - cat - often - Home - Holidays")  </span></li>
+                                  <li class="slider__caption"><span>@LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - cat - often - Home - Never")     </span></li>
+                                </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="small-12 large-6 columns end">
+                                                <div class="radio-button-container">
+                                                    @*<p class="label">@LocalizationHelper.GetDictionaryItem("Edit - Profile - Form - Pet - Questionary - Light")</p>*@
+                                                    <p class="label" data-question="@LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - cat - Tried - light")" data-question-male="@LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - cat - Tried - light - Male")" data-question-female="@LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - cat - Tried - light - Female")">@LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - cat - Tried - light")</p>
+                                                    @{
+                                                        var lightProductYesChecked = pet.isProductTriedBefore.Equals("Yes") ? "Checked" : "";
+                                                        var lightProductNoChecked = pet.isProductTriedBefore.Equals("No") ? "Checked" : "";
+                                                    }
+                                                    <input class="form-item" value="Yes" type="radio" name="catisProductTriedBefore" id="cat-product-tried-before-yes-index-@count" @lightProductYesChecked />
+                                                    <label for="cat-product-tried-before-yes-index-@count">@LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - Sterillized - choice - Yes")</label>
+                                                    <input class="form-item" value="No" type="radio" name="catisProductTriedBefore" id="cat-product-tried-before-no-index-@count" @lightProductNoChecked />
+                                                    <label for="cat-product-tried-before-no-index-@count">@LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - Sterillized - choice - No")</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <p class="mandatory-info">@LocalizationHelper.GetDictionaryItem("Edit - Profile - Mandatory - Text")</p>
+                                        <div class="row">
+                                            <div class="small-12 large-6 columns">
+                                                <div class="profile__save-btn">
+                                                    <button class="btn btn--block btn--form js-new-pet" type="button">
+                                                        <span>@LocalizationHelper.GetDictionaryItem("Page - Profile - Save - Button")</span>
+                                                        <i class="icon-spinner icon-rotate-animate"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="remove-pet">
+                                            <a class="rounded-button remove-pet__button js-delete-pet" href="/umbraco/Surface/RegistrationPets/DeletePet?id=@pet.petId" data-type="edit"><i class="icon-trash"></i></a>
+                                            <p class="remove-pet__text">@LocalizationHelper.GetDictionaryItem("Page - Profil - Delete - This - Pet")</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- End -- if pet is cat-->
+                                <!-- -if pet is dog-->
+                                <div id="registration-pet-tab-content-dog-@count">
+                                    <div class="pet-type__thumbnail pet-type__thumbnail--dog pet-type__placeholder" data-category="dog">
+                                        <input class="js-camera-pet" id="dog-picture-click-index-@count" type="file" accept="image/jpeg, image/png, image/x-png, image/gif" name="dogpetPhotoUrl" />
+                                        <label class="pet-type__icon" for="dog-picture-click-index-@count"><span class="rounded-button rounded-button--bordered"><i class="icon-camera icon-medium"></i></span></label><span class="rounded-button rounded-button--bordered pet-type__icon pet-type__icon--delete-picture js-pet-profile-remove-pic"><i class="icon-trash"></i></span>
+                                    </div><span class="pet-type__max-size-msg">@LocalizationHelper.GetDictionaryItem("Registration - Pet - Picture - size - Text")</span>
+                                    <div class="pet-form-group">
+                                        <div class="row">
+                                            <div class="small-12 large-6 columns">
+                                                <label for="dog-name-index-@count">@LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - Name")<span class="form-item__info"></span></label>
+                                                <input value="@pet.petName" type="text" name="dogpetName" id="dog-name-index-@count" required="required" data-parsley-required="data-parsley-required" data-parsley-error-message="@LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - Name - Error")" data-parsley-group="dog-form" data-parsley-pattern= "^[^0-9^(#|*|-|+|/|:|;|,|~|`|=|<|>|\\|?|&|$|@@|%|(|))]+$" />
+                                            </div>
+                                            <div class="small-12 large-6 columns">
+                                                <div class="radio-button-container">
+                                                    <p class="label">@LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - Gender")</p>
+                                                    @{
+                                                        var malCheckedDog = pet.petGender.Equals("Male") ? "Checked" : "";
+                                                        var femaleCheckedDog = pet.petGender.Equals("Female") ? "Checked" : "";
+                                                    }
+                                                    <input class="form-item" value="2" type="radio" name="dogpetGender" id="dog-gender-male-index-@count" data-parsley-required="data-parsley-required" data-parsley-error-message="@LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - Gender - Error")" data-parsley-group="dog-form" @malCheckedDog />
+                                                    <label for="dog-gender-male-index-@count">@LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - Gender - Male")</label>
+                                                    <input class="form-item" value="1" type="radio" name="dogpetGender" id="dog-gender-female-index-@count" data-parsley-required="data-parsley-required" data-parsley-error-message="@LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - Gender - Error")" data-parsley-group="dog-form" @femaleCheckedDog />
+                                                    <label for="dog-gender-female-index-@count">@LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - Gender - Female")</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="select-date">
+                                                <div class="small-12 large-6 columns">
+                                                    <p class="label">@LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - Age")</p>
+                                                    <div class="slider__wrapper">
+                                                        <div class="slider" data-slider="data-slider" data-initial-start="@pet.petAgeIndex" data-start="0" data-end="19" data-step="1" aria-controls="dog-age-ladder-index-@count">
+                                                            <span class="slider__dots" data-dots="2"><span class="slider__dot"><i class="icon-dot"></i></span><span class="slider__dot"><i class="icon-dot"></i></span></span><span class="slider-handle active" data-slider-handle="data-slider-handle" role="slider" aria-controls="dog-age-ladder-index-@count" aria-valuenow="0" aria-valuemin="0" aria-valuemax="19">
+                                                                <input id="dog-age-ladder-index-@count" type="hidden" name="dogpetLadderAge" /><span class="slider__tooltip">-6m</span>
+                                                            </span><span class="slider-fill" data-slider-fill="data-slider-fill"></span>
+                                  <ul class="slider__captions" data-captions="2">
+                                    <li class="slider__caption"><span>-6m</span></li>
+                                    <li class="slider__caption"><span>14+</span></li>
+                                  </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="small-12 large-6 columns">
+                                                    <p class="label">@LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - BirthDate")</p>
+                                                    <div class="select-date__wrapper" data-category="dog">
+                                                        <select class="js-date-day" id="day-dog-age-list-index-@count" aria-label="Day" name="dogpetBirthDay">
+                                                            @{
+                                                                string selectedGod = "";
+
+                                                                for (int i = 1; i < 32; i++)
+                                                                {
+
+                                                                    if (pet.petBirthDay == i)
+                                                                    {
+                                                                        selectedGod = "selected=" + "selected";
+                                                                        <option value="@i" @selectedGod>@i</option>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <option value="@i">@i</option>
+                                                                    }
+
+                                                                }
+                                                            }
+                                                        </select>
+                                                        <select class="js-date-month" id="month-dog-age-list-index-@count" aria-label="Month" name="dogpetBirthMonth">
+                                                            @{
+                                                                <option>@LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - Month")</option>
+                                                                string selectedMonthDog = "";
+                                                                for (int i = 0; i < 12; i++)
+                                                                {
+                                                                    if (pet.petBirthMonth == i + 1)
+                                                                    {
+                                                                        selectedMonthDog = "selected=" + "selected";
+                                                                        <option value="@i" @selectedMonthDog>@month[i]</option>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <option value = "@i"> @month[i] </option>
+                                                                    }
+                                                                }
+
+                                                            }
+                                                        </select>
+                                                        <select class="js-date-year" id="year-dog-age-list-index-@count" aria-label="Year" name="dogpetBirthYear">
+                                                            <option>@LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - Year")</option>
+                                                            @{
+                                                                <option>@LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - Year")</option>
+
+                                                                string selectedYearDog = "";
+                                                                for (int i = 2017; i > 1994; i--)
+                                                                {
+                                                                    if (pet.petBirthYear == i)
+                                                                    {
+                                                                        selectedYearDog = "selected=" + "selected";
+                                                                        <option value="@i" @selectedYearDog>@i</option>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <option value="@i">@i</option>
+                                                                    }
+                                                                }
+
+                                                            }
+
+                                                        </select>
+                                                    </div><span class="select-date__error-message">@LocalizationHelper.GetDictionaryItem("Page - Profile - Enter - valideDate - Question")</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="small-12 column">
+                                                <div class="breed" data-url="/umbraco/Surface/RegistrationPets/GetBreeds" data-category="dog" id="dog-picture-index-@count">
+                                                    <div class="row expanded">
+                                                        <div class="small-12 large-6 columns">
+                                                            <label for="dog-breed-index-@count">@LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - Breed - text")<span class="form-item__info"></span></label>
+                                                            <input class="breed__search" type="text" name="dogpetBreed" id="dog-breed-index-@count" />
+                                                            <input class="breed__value" type="hidden" name="dogpetBreedId" id="dog-breed-hidden-index-@count"  value="@pet.PetBreedId" />
+                                                        </div>
+                                                        <div class="small-12 large-12 columns">
+                                                            <div class="breed__carousel"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="small-12 large-6 columns">
+                                                @*<p class="label">@LocalizationHelper.GetDictionaryItem("Edit - Profile - Pet - Slide - Weight")</p>*@
+                                                <p class="label" data-question="@LocalizationHelper.GetDictionaryItem("Registration - Pet - Dog - weight - Question")" data-question-male="@LocalizationHelper.GetDictionaryItem("Registration - Pet - Dog - weight - Question - Male")" data-question-female="@LocalizationHelper.GetDictionaryItem("Registration - Pet - Dog - weight - Question - Female")">
+                                                    @LocalizationHelper.GetDictionaryItem("Registration - Pet - Dog - weight - Question")
+                                                </p>
+                                                @{
+                                                    var weighActive = "";
+                                                    if (pet.petWeigh > 0) { weighActive = "active"; }
+                                                }
+                                                <div class="slider__wrapper">
+                                                    <div class="slider" data-slider="data-slider" data-initial-start="@pet.petWeigh" data-start="17" data-end="21" data-step="1" aria-controls="dog-weigh-index-@count">
+                                                        <span class="slider__dots" data-dots="5"><span class="slider__dot"><i class="icon-dot"></i></span><span class="slider__dot"><i class="icon-dot"></i></span><span class="slider__dot"><i class="icon-dot"></i></span><span class="slider__dot"><i class="icon-dot"></i></span><span class="slider__dot"><i class="icon-dot"></i></span></span>
+                                                        <span class="slider-handle @weighActive" data-slider-handle="data-slider-handle" role="slider" aria-controls="dog-weigh-index-@count" aria-valuenow="0" aria-valuemin="17" aria-valuemax="21">
+                                                            <input id="dog-weigh-index-@count" type="hidden" name="dogpetWeigh" />
+                                                        </span><span class="slider-fill" data-slider-fill="data-slider-fill"></span>
+                                <ul class="slider__captions" data-captions="5">
+                                  <li class="slider__caption"><span>0 - 5 Kg</span></li>
+                                  <li class="slider__caption"><span>6 - 10 Kg</span></li>
+                                  <li class="slider__caption"><span>11 - 15 Kg</span></li>
+                                  <li class="slider__caption"><span>16 - 25 Kg</span></li>
+                                  <li class="slider__caption"><span>+ 25 Kg</span></li>
+                                </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="small-12 large-6 columns">
+                                                @*<p class="label">@LocalizationHelper.GetDictionaryItem("Edit - Profile - Slide - Pet - Active")</p>*@
+                                                <p class="label" data-question="@LocalizationHelper.GetDictionaryItem("Registration - Pet - Dog - Active - Question")" data-question-male="@LocalizationHelper.GetDictionaryItem("Registration - Pet - Dog - Active - Question - Male")" data-question-female="@LocalizationHelper.GetDictionaryItem("Registration - Pet - Dog - Active - Question - Female")">@LocalizationHelper.GetDictionaryItem("Registration - Pet - Dog - Active - Question")</p>
+                                                @{
+                                                    var petHowActive = "";
+                                                    if (pet.petActive > 0) { petHowActive = "active"; }
+                                                }
+                                                <div class="slider__wrapper">
+                                                    <div class="slider" data-slider="data-slider" data-initial-start="@pet.petActive" data-start="1" data-end="3" data-step="1" aria-controls="dog-active-index-@count">
+                                                        <span class="slider__dots" data-dots="3"><span class="slider__dot"><i class="icon-dot"></i></span><span class="slider__dot"><i class="icon-dot"></i></span><span class="slider__dot"><i class="icon-dot"></i></span></span>
+                                                        <span class="slider-handle @petHowActive" data-slider-handle="data-slider-handle" role="slider" aria-controls="dog-active-index-@count" aria-valuenow="0" aria-valuemin="1" aria-valuemax="3">
+                                                            <input id="dog-active-index-@count" type="hidden" name="dogpetActive" />
+                                                        </span><span class="slider-fill" data-slider-fill="data-slider-fill"></span>
+                                <ul class="slider__captions" data-captions="3">
+                                  <li class="slider__caption"><span>@LocalizationHelper.GetDictionaryItem("Registration - Pet - Dog - Active - Hardly")     </span></li>
+                                  <li class="slider__caption"><span>@LocalizationHelper.GetDictionaryItem("Registration - Pet - Dog - Active - Regularly")   </span></li>
+                                  <li class="slider__caption"><span>@LocalizationHelper.GetDictionaryItem("Registration - Pet - Dog - Active - Very")</span> </li>
+                                </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="small-12 large-6 columns">
+                                                <div class="radio-button-container">
+                                                 <p class="label" data-question="@LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - IsSterillized - Default - Dog")" data-question-male="@LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - IsSterillized - Dog")" data-question-female="@LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - IsSterillized - Dog - Female")">@LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - IsSterillized - Dog")</p>
+                                                    <input class="form-item" value="Yes" type="radio" name="dogisPetSterilized" id="dog-checkbox-sterilized-yes-index-@count" data-parsley-required="data-parsley-required" data-parsley-error-message="@LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - isSterilized - dog - Error")" data-parsley-group="dog-form" @sterillizedYesChecked />
+                                                    <label for="dog-checkbox-sterilized-yes-index-@count">@LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - Sterillized - choice - Yes")</label>
+                                                    <input class="form-item" value="No" type="radio" name="dogisPetSterilized" id="dog-checkbox-sterilized-no-index-@count" data-parsley-required="data-parsley-required" data-parsley-error-message="@LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - isSterilized - dog - Error")" data-parsley-group="dog-form" @sterillizedNoChecked />
+                                                    <label for="dog-checkbox-sterilized-no-index-@count">@LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - Sterillized - choice - No")</label>
+                                                </div>
+                                            </div>
+                                            <div class="small-12 large-6 columns">
+                                                @*<p class="label">@LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - dog - often - Home")</p>*@
+                                                <p class="label" data-question="@LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - dog - often - Home")" data-question-male="@LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - dog - often - Home - Male")" data-question-female="@LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - dog - often - Home - Female")">@LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - dog - often - Home")</p>
+                                                <div class="slider__wrapper">
+                                                    <div class="slider" data-slider="data-slider" data-initial-start="@pet.petAloneSitter" data-start="1" data-end="4" data-step="1" aria-controls="dog-alone-sitter-index-@count">
+                                                        <span class="slider__dots" data-dots="4"><span class="slider__dot"><i class="icon-dot"></i></span><span class="slider__dot"><i class="icon-dot"></i></span><span class="slider__dot"><i class="icon-dot"></i></span><span class="slider__dot"><i class="icon-dot"></i></span></span>
+                                                        <span class="slider-handle @aloneSitterActive" data-slider-handle="data-slider-handle" role="slider" aria-controls="dog-alone-sitter-index-@count" aria-valuenow="0" aria-valuemin="0" aria-valuemax="3">
+                                                            <input id="dog-alone-sitter-index-@count" type="hidden" name="dogpetAloneSitter" />
+                                                        </span><span class="slider-fill" data-slider-fill="data-slider-fill"></span>
+                                <ul class="slider__captions" data-captions="4">
+                                  <li class="slider__caption"><span>@LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - cat - often - Home - workdays")</span></li>
+                                  <li class="slider__caption"><span>@LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - cat - often - Home - weekends")</span></li>
+                                  <li class="slider__caption"><span>@LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - cat - often - Home - Holidays")</span></li>
+                                  <li class="slider__caption"><span>@LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - cat - often - Home - Never") </span></li>
+                                </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="small-12 large-6 columns end">
+                                               @* <p class="label">@LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - Dog - Tried - light-text")</p>*@
+                                                <p class="label" data-question="@LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - Dog - Tried - light-text")" data-question-male="@LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - Dog - Tried - light-text - Male")" data-question-female="@LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - Dog - Tried - light-text - Female")">@LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - Dog - Tried - light-text")</p>
+                                                <input class="form-item" value="Yes" type="radio" name="dogisProductTriedBefore" id="dog-product-tried-before-yes-index-@count" @lightProductYesChecked />
+                                                <label for="dog-product-tried-before-yes-index-@count">@LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - Sterillized - choice - Yes")</label>
+                                                <input class="form-item" value="No" type="radio" name="dogisProductTriedBefore" id="dog-product-tried-before-no-index-@count" @lightProductNoChecked />
+                                                <label for="dog-product-tried-before-no-index-@count">@LocalizationHelper.GetDictionaryItem("Registration - Pet - Form - Sterillized - choice - No")</label>
+                                            </div>
+                                        </div>
+                                        <p class="mandatory-info">@LocalizationHelper.GetDictionaryItem("Edit - Profile - Mandatory - Text")</p>
+                                        <div class="row">
+                                            <div class="small-12 large-6 columns">
+                                                <div class="profile__save-btn">
+                                                    <button class="btn btn--block btn--form js-new-pet" type="button">
+                                                        <span>@LocalizationHelper.GetDictionaryItem("Page - Profile - Save - Button")</span>
+                                                        <i class="icon-spinner icon-rotate-animate"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="remove-pet">
+                                            <a class="rounded-button remove-pet__button js-delete-pet" href="/umbraco/Surface/RegistrationPets/DeletePet?id=@pet.petId" data-type="edit"><i class="icon-trash"></i></a>
+                                            <p class="remove-pet__text">@LocalizationHelper.GetDictionaryItem("Page - Profil - Delete - This - Pet")</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- End - - if pet is dog-->
+                            </form> @{count++; }
+                            <!--end looping-->
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+
+                                    }
+                                }
+
+
+
+
+
+    <!--End off first looping-->
+    <div class="section-container section-container--spaced js-add-another-pet-profile">
+        <div class="profile">
+            <h2 class="profile__heading">@Html.Raw(@LocalizationHelper.GetDictionaryItem("Page - Profil - Add - AnotherPet")) </h2>
+            <div class="profile__icon"><i class="icon-plus"></i></div>
+        </div>
+    </div>
+    <div class="section-container section-container--spaced profile-pet__max-pets">
+        <div class="section-heading section-heading--spaced">
+            <h2 class="section-heading__title">@Html.Raw(@LocalizationHelper.GetDictionaryItem("Page - Profil - ProfileFull - Text"))</h2>
+        </div>
+    </div>
+    <div class="mfp-hide popin-confirmation">
+        <p>@LocalizationHelper.GetDictionaryItem("Page - Profil - Delete - Confirmation - Text")</p>
+        <div class="popin-confirmation__buttons">
+            <a class="btn btn--link btn--block btn--form btn--popin js-delete-pet-confirm"><span>@LocalizationHelper.GetDictionaryItem("Page - Profil - Confirm - Button - Text")</span></a><a class="btn btn--link btn--block btn--form btn--popin js-delete-pet-cancel"><span>@LocalizationHelper.GetDictionaryItem("Page - Profil - Cancel - Button - Text")</span></a>
+        </div>
+    </div>
+    <div class="mfp-hide popin-deactivate-account-confirmation">
+        <p>@LocalizationHelper.GetDictionaryItem("Page - Profil - Deactivate - Account - Confirmation - Text")</p>
+        <div class="popin-confirmation__buttons">
+            <a class="btn btn--link btn--block btn--form btn--popin js-deactivate-account-confirm"><span>@LocalizationHelper.GetDictionaryItem("Page - Profil - Confirm - Button - Text")</span></a><a class="btn btn--link btn--block btn--form btn--popin js-deactivate-account-cancel"><span>@LocalizationHelper.GetDictionaryItem("Page - Profil - Cancel - Button - Text")</span></a>
+        </div>
+    </div>
+</div>

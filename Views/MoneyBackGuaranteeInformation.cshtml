@@ -1,0 +1,80 @@
+﻿@using Mars.PerfectFit.Presentation.Web.Helpers
+@model Mars.PerfectFit.Presentation.Web.ViewModels.MoneyBackGuaranteeInformationViewModel
+@using ContentModels = Umbraco.Web.PublishedContentModels;
+@{
+    Layout = "DefaultLayout.cshtml";
+    var IBANError = @LocalizationHelper.GetDictionaryItem("Money - Back -Guarantee - Information - IBAN - Error");
+    var GENCODEerror = @LocalizationHelper.GetDictionaryItem("Money - Back -Guarantee - Information - GENCODE - Error");
+    var boutonReload = @LocalizationHelper.GetDictionaryItem("Money - Back -Guarantee - Reload - Button - Text");
+}
+
+<div class="page-container">
+    <div class="banner">
+        <picture>
+            <source media="(max-width: 1023px)" srcset="@Html.GetMediaItem(Model.ImageBanner)" />
+            <img class="img--responsive" src="@Html.GetMediaItem(Model.ImageBanner)" width="1280" height="696" alt="Banner" />
+        </picture>
+    </div>
+    <div class="section-container overlapping-section">
+        <header class="overlapping-section__header">
+            <h1><span class="bold">@Model.TitleBold</span>@Model.SimpleTitle</h1>
+            <div class="overlapping-section__introduction mbg__intro">
+                <p class="overlapping-section__paragraph">@Model.LongDescription</p>
+                <p class="overlapping-section__paragraph overlapping-section__paragraph--small">@Model.ShortDescription</p>
+            </div>
+        </header>
+        <div class="section-content mbg">
+            <form class="mbg__form" action="/umbraco/Surface/MoneyBackGuaranteeInformation/ValidationInformation" method="post" enctype="multipart/form-data">
+                <h2 class="mbg__title">@LocalizationHelper.GetDictionaryItem("Money - Back -Guarantee - Information - Title")</h2>
+                <label for="iban">@LocalizationHelper.GetDictionaryItem("Money - Back -Guarantee - Information - IBAN")<span class="form-item__info"></span></label>
+
+
+                <input type="text" name="iban" id="iban" required="required" data-parsley-required="data-parsley-required" data-parsley-error-message="@IBANError" value="@Model.MbgUpdate.Iban"
+                data-parsley-error-message="@LocalizationHelper.GetDictionaryItem("Money - Back -Guarantee - Information - Format - IBAN - Error")" data-parsley-pattern="[a-zA-Z]{2}[0-9]{2}[a-zA-Z0-9]{4}[0-9]{7}([a-zA-Z0-9]?){0,19}" data-parsley-length="[34, 34]"/>
+
+                <h2 class="mbg__title">@LocalizationHelper.GetDictionaryItem("Money - Back -Guarantee - Information - Product - Info - Title")</h2>
+                <label for="gencode">@LocalizationHelper.GetDictionaryItem("Money - Back -Guarantee - Information - Product - GENCODE")<span class="form-item__info"></span></label>
+                <input type="text" name="gencodeInput" id="gencode" required="required" data-parsley-error-message="@GENCODEerror" data-parsley-length='[13, 13]' data-parsley-type="digits" value="@Model.MbgUpdate.Gencode" />
+                <input type="hidden" name="participation" id="participation" value="@Model.MbgUpdate.ApiParticipation" />
+                <p class="mbg__label">@LocalizationHelper.GetDictionaryItem("Money - Back -Guarantee - Information - Upload - photo - Text")</p>
+                <button class="btn btn--form js-mbg-upload upload-gencode-mbg" type="button" data-reload-text="@boutonReload">
+                    <span>@LocalizationHelper.GetDictionaryItem("Money - Back -Guarantee - Information - Upload -  Button - Text")</span>
+                </button>
+                <input class="mbg__upload js-mbg-input-file" id="gencode-photo" aria-label="Gencode Photo" type="file" accept=".jpg, .png, .jpeg, .pdf" name="gencode" required data-parsley-error-message="@IBANError">
+                <div class="mbg__img-preview">
+                    <div class="error-message">@LocalizationHelper.GetDictionaryItem("Money - Back -Guarantee - Information - Picture - Size - Text")</div>
+                    <p class="file-name"></p>
+                    @{
+                        if (!string.IsNullOrEmpty(Model.MbgUpdate.GencodePhotoId))
+                        {
+                            <img class="img--responsive" alt="Preview Image" src="@Html.GetMediaItem(Model.MbgUpdate.GencodePhotoId)" />
+                        }
+                    }
+                </div>
+                <h2 class="mbg__title">@LocalizationHelper.GetDictionaryItem("Money - Back -Guarantee - Information - Your - Receipt - Text")</h2>
+                <p class="mbg__label">@LocalizationHelper.GetDictionaryItem("Money - Back -Guarantee - Information - Upload - Receipt - Text")</p>
+                <button class="btn btn--form js-mbg-upload upload-receipt-mbg" type="button" data-reload-text="@boutonReload">
+                    <span>@LocalizationHelper.GetDictionaryItem("Money - Back -Guarantee - Information - Upload -  Button - Text")</span>
+                </button>
+                <input class="mbg__upload js-mbg-input-file" id="receipt-photo" aria-label="Receipt Photo" type="file" accept=".jpg, .png, .jpeg, .pdf"  name="receipt" required data-parsley-error-message="@IBANError">
+                <div class="mbg__img-preview">
+                    <div class="error-message">@LocalizationHelper.GetDictionaryItem("Money - Back -Guarantee - Information - Picture - Size - Text")</div>
+                    <p class="file-name"></p>
+                    @{
+                        if (!string.IsNullOrEmpty(Model.MbgUpdate.ReceiptPhotoId))
+                        {
+                            <img class="img--responsive" alt="Preview Image" src="@Html.GetMediaItem(Model.MbgUpdate.ReceiptPhotoId)" />
+                        }
+                    }
+                </div>
+                <div class="mbg__info">
+                    <p>@Html.Raw(HttpUtility.HtmlDecode(Model.LegalText))</p>
+                    <p>@LocalizationHelper.GetDictionaryItem("Money - Back -Guarantee - Information - Mandatory - Text")</p>
+                </div>
+                <button class="btn btn--form validate-mbg js-validate-mbg" type="submit">
+                    <span>@LocalizationHelper.GetDictionaryItem("Money - Back -Guarantee - Information - Validate - Button - Text") </span>
+                </button>
+            </form>
+        </div>
+    </div>
+</div>

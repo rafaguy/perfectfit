@@ -1,0 +1,32 @@
+﻿@using Mars.PerfectFit.Presentation.Web.Helpers
+@model Mars.PerfectFit.Presentation.Web.ViewModels.CouponConfirmationViewModel
+@{
+	Layout = "DefaultLayout.cshtml";
+}
+<div class="page-container coupon-confirmation">
+    <div class="banner">
+        <picture>
+            <source media="(max-width: 1023px)" srcset="@Html.GetMediaItem(Model.couponConfirmation.BannerImage)" />
+            <img class="img--responsive" src="@Html.GetMediaItem(Model.couponConfirmation.BannerImage)" width="1280" height="696" alt="Hello" />
+        </picture>
+    </div>
+
+    <div class="overview-box">
+        <header class="overlapping-section__header overlapping-section__header--large">
+            <h1 class="overview-box__title">
+                <span class="overview-box__subtitle">@LocalizationHelper.GetDictionaryItem("Coupon - Confirmation Page - Title")</span>
+                <span class="overview-box__subtitle--simple">@Model.couponConfirmation.Title</span>
+            </h1>
+            <p class="uppercase overlapping-section__paragraph">
+
+                <span class="overlapping-section__paragraph">@Model.couponConfirmation.ConfirmationMessage</span>
+            </p>
+        </header>
+        <div class="section-content">
+            <div class="container-flex">
+                <a class="btn btn--link btn--form btn--flex" href="/"><span>@LocalizationHelper.GetDictionaryItem("Coupon - Confirmation Page - Link - Go Back Home")</span></a>
+                <a class="btn btn--link btn--form btn--flex" href="/offers"><span>@LocalizationHelper.GetDictionaryItem("Coupon - Confirmation Page - Link - Go Back Offers")</span></a>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,262 @@
+﻿@using Mars.PerfectFit.Presentation.Web.Helpers
+@model Mars.PerfectFit.Presentation.Web.ViewModels.ProductViewModel
+
+@{
+    Layout = "DefaultLayout.cshtml";
+}
+
+<div class="page-container" data-theme="pink">
+<div class="product-box product-box--detail">
+    <div class="row expanded">
+        <div class="small-9 large-9 columns no-padding">
+            <div class="product-box__title product-box__title--detail">@Model.Title</div>
+        </div>
+        <div class="small-3 large-3 columns no-padding">
+            <div class="product-box__icon product-box__icon--detail">
+                <img src="@Html.GetMediaItem(Model.FlavorIcon)" width="47" height="47" alt="flavors"/>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="section-container product-info-container">
+    <div class="product-info__carousel">
+        <div class="product-info__item">
+            <img class="product-info__item-image" src="@Html.GetMediaItem(Model.Packshots.Split(',')[0])" width="430" height="500" alt="indoor 1 image"/>
+        </div>
+        <div class="product-info__item">
+            <img class="product-info__item-image" src="@Html.GetMediaItem(Model.Packshots.Split(',')[1])" width="430" height="500" alt="indoor 1 image"/>
+        </div>
+        <div class="product-info__item">
+            <img class="product-info__item-image" src="@Html.GetMediaItem(Model.Packshots.Split(',')[2])" width="430" height="500" alt="indoor 1 image"/>
+        </div>
+    </div>
+    <div class="product-info__ratings"></div>
+    <div class="product-info__coupon-wrapper">
+        <div class="product-info__coupon">
+            <div class="coupon__box">
+                <p class="coupon__text coupon__text--bold">10€<span class="coupon__text">Off</span></p><a class="btn btn--link download-now btn--coupon" href="#">
+                    <span>Download Now</span><i class="icon-navigate-next"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="section-container product-description-container" id="overview">
+    <div class="overview-box overview-box--product-detail">
+        <h1 class="overview-box__title">Perfect Fit<span class="overview-box__subtitle">cat products</span></h1>
+        <p class="overview-box__paragraph">@Html.Raw(Model.Description)</p>
+    </div>
+</div>
+<div class="section-container" id="benefits">
+    <div class="row expand">
+        <div class="benefits-wrapper">
+            <h2 class="benefits__title">Benefits</h2>
+            @{
+                foreach (var benefit in Model.Benefits)
+                {
+                    <div class="small-12 large-4 columns no-padding">
+                        <div class="thumbnail-box">
+                            <div class="thumbnail-box__icon">
+                                <img src="@Html.GetMediaItem(benefit.Image)" alt="Alt"/>
+                            </div>
+                            <h3 class="thumbnail-box__caption">@benefit.Title</h3>
+                            <p class="thumbnail-box__content">@benefit.Description</p>
+                            <div class="thumbnail-box__wrapper">
+                                <div class="thumbnail-box__collapsed-wrapper">
+                                    <p class="thumbnail-box__content-collapsed">@benefit.LongDescription</p>
+                                    <div class="thumbnail-box__less">
+                                        <span class="close-wrapper js-close-benefits"> <i class="icon-close"></i></span>
+                                    </div>
+                                </div>
+                                <div class="thumbnail-box__more">
+                                    <button class="btn js-btn-learnmore-benefits learn-more-benefits" type="button">
+                                        <span>Learn more</span><i class="icon-navigate-next"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+
+        </div>
+    </div>
+</div>
+<div class="section-container total-five-container" id="totalfive">
+    <div class="total-five__header">
+        <h2 class="total-five__header-title">Perfect fit total 5<span class="total-five__header-subtitle">formula</span></h2>
+    </div>
+    <div class="total-five__overview">
+        <div class="total-five__img">
+            <img class="img--responsive" src="@Html.GetMediaItem(Model.ProductFormula.DesktopImage)" width="590" height="456" alt="PERFECT Fit combines 5 benefits addressing the most common pets health needs"/>
+        </div>
+        <div class="divider"></div>
+        <div class="total-five__description">
+            <h3 class="total-five__title">@Model.ProductFormula.Title</h3>
+            <p class="total-five__paragraph">@Model.ProductFormula.Description</p>
+            <button class="btn btn--total-five js-totalfive learn-more-total-five" type="button">
+                <span>Learn More</span><i class="icon-navigate-next"></i>
+            </button>
+        </div>
+    </div>
+    <div class="total-five__carousel">
+        <div class="row">
+            <div class="small-12 large-12 columns no-padding">
+                <div class="carousel__exit">
+                    <i class="icon-close"></i>
+                </div>
+            </div>
+            <div class="small-12 large-12 columns no-padding">
+                <div class="carousel">
+                    @foreach (var benefit in Model.ProductFormula.Benefits)
+                    {
+                        <div class="carousel__item-wrapper">
+                            <div class="row">
+                                <div class="small-12 large-6 large-push-6 columns">
+                                    <div class="carousel__item">
+                                        <img src="@Html.GetMediaItem(benefit.Image)" width="200" height="200" alt="total five"/>
+                                    </div>
+                                </div>
+                                <div class="small-12 large-6 large-pull-6 columns">
+                                    <div class="carousel__item">
+                                        <div class="carousel__item-description">
+                                            <h4 class="carousel__item-title">@benefit.Title</h4>
+                                            <p class="carousel__item-paragraph">@benefit.Description</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="section-container collapsible-section-container">
+    <div class="row">
+        <div class="small-12 large-6 columns no-padding">
+            <div class="section-collapsible" id="ingredientsandnutrition">
+                <div class="collapsible-box js-collapsible-box clickable-area">
+                    <h2 class="collapsible-box__title">Ingredients &amp;<span class="collapsible-box__title--regular">Nutrition</span></h2>
+                    <div class="collapsible-box__icon">
+                        <span class="close-wrapper js-close-collapsibleBox collapsible-box-feeding"><i class="icon-plus"></i></span></div>
+                    <div class="collapsible-box--collapsed">
+                        <div class="row">
+                            <div class="small-12 large-12 columns">
+                                <h3 class="collapsible-box__subtitle">Composition</h3>
+                                <p class="collapsible-box__paragraph">@Html.Raw(Model.Nutrition.Composition)</p>
+
+                            </div>
+                            <div class="small-12 large-12 columns">
+                                <h3 class="collapsible-box__subtitle">analytical constituents</h3>
+                                <table class="table">
+                                    @foreach (var constituent in Model.Nutrition.AnalyticalConstituant)
+                                    {
+                                        <tr class="table__row">
+                                            <td class="table__cell">@constituent.analyticalConstituentName</td>
+                                            <td class="table__cell">@constituent.analyticalConstituentQuantity %</td>
+                                        </tr>
+                                    }
+                                </table>
+                            </div>
+                            <div class="small-12 large-12 columns">
+                                <h3 class="collapsible-box__subtitle">Antioxidants / Nutritional additives</h3>
+                                <table class="table">
+                                    @foreach (var antioxydant in Model.Nutrition.AntioxidantAdditives)
+                                    {
+                                        <tr class="table__row">
+                                            <td class="table__cell">@antioxydant.antioxidantName</td>
+                                            <td class="table__cell">@antioxydant.antioxidantQuantity @antioxydant.antioxidantUnit</td>
+                                        </tr>
+                                    }
+
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="small-12 large-6 columns no-padding">
+            <div class="section-collapsible" id="feedinginstructions">
+                <div class="collapsible-box js-collapsible-box clickable-area">
+                    <h2 class="collapsible-box__title">Feeding<span class="collapsible-box__title--regular">Instructions</span></h2>
+                    <div class="collapsible-box__icon">
+                        <span class="close-wrapper js-close-collapsibleBox collapsible-box-feeding"><i class="icon-plus"></i></span></div>
+                    <div class="collapsible-box--collapsed">
+                        <div class="row">
+                            <div class="small-12 large-12 columns">
+                                <h3 class="collapsible-box__subtitle">Cat approximative weight</h3><span class="select-wrapper select-wrapper--color">
+                                        <select class="select-box js-select-box">
+                                            @foreach (var feedings in Model.Feedings)
+                                            {
+                                                <option value="">@feedings.PetWeight</option>
+                                            }
+                                        </select>
+                                    </span>
+                            </div>
+                            @{
+                                var feeding = Model.Feedings.First();
+                                <div class="small-12 large-12 columns">
+                                    <h3 class="collapsible-box__subtitle">Daily feeding recommendation</h3>
+                                    <div class="box-info">
+                                        <div class="box-info__text">Dry food only</div>
+                                        <div class="box-info__text box-info__text--quantity">
+                                            @feeding.DryFoodOnlyQuantity<span class="power"></span>
+                                        </div>
+                                        <div class="box-info__text box-info__text--unit">@feeding.PouchUnit</div>
+                                    </div>
+                                    <p class="box-info--linker">or</p>
+                                    <div class="box-info--wrapper">
+                                        <div class="box-info box-info--plus">
+                                            <div class="box-info__text">Dry food</div>
+                                            <div class="box-info__text box-info__text--quantity">
+                                                20<span class="power"></span>
+                                            </div>
+                                            <div class="box-info__text box-info__text--unit">grams</div>
+                                        </div>
+                                        <div class="box-info">
+                                            <div class="box-info__text">Wet food</div>
+                                            <div class="box-info__text box-info__text--quantity">
+                                                2<span class="power">1/2</span>
+                                            </div>
+                                            <div class="box-info__text box-info__text--unit">pouch(es)</div>
+                                        </div>
+                                    </div>
+                                    <p>@feeding.GlobalRecommendation</p>
+                                    <p>* A pouch is 85g</p>
+                                </div>
+                                <div class="small-12 large-12 columns">
+                                    <h3 class="collapsible-box__subtitle">Daily feeding recommendation</h3>
+                                    <div class="box-info--wrapper">
+                                        <div class="box-info">
+                                            <div class="box-info__text">Dry food only</div>
+                                            <div class="box-info__text box-info__text--quantity">
+                                                195<span class="power"></span>
+                                            </div>
+                                            <div class="box-info__text box-info__text--unit">grams</div>
+                                        </div>
+                                        <div class="box-info">
+                                            <div class="box-info__text">Devided into</div>
+                                            <div class="box-info__text box-info__text--quantity">
+                                                2<span class="power"></span>
+                                            </div>
+                                            <div class="box-info__text box-info__text--unit">meals</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                            <div class="small-12 large-12 columns">
+                                <h3 class="collapsible-box__subtitle">Your dog is not a puppy anymore</h3><a class="btn btn--link btn--themed js-see-our-adult-product" href="#">
+                                    <span>see our adult products</span><i class="icon-navigate-next"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>

@@ -1,0 +1,13 @@
+﻿@model Mars.PerfectFit.Presentation.Web.ViewModels.Navigation
+<div class="navbar__left">
+    <ul class="inline-list">
+        @foreach (var item in Model.MenuItems.Where(x => x.Alignment == "Left"))
+        {
+            <li class="inline-list__item inline-list__item--piped">
+
+                <a class="inline-list__link js-anchor"  href="/@item.RelativeLink">@item.Title</a>
+            </li>
+        }
+    </ul>
+</div>
+
